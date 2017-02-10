@@ -1,7 +1,6 @@
 package server;
 
 public abstract class User {
-	// testing my first push
 	private String name;
 	private String password;
 	
@@ -11,6 +10,8 @@ public abstract class User {
 	}
 	
 	public abstract void read();
-	
-	public abstract void authenticate();
+	/*same authentication process for all users, implemented only here*/
+	public void authenticate(){
+		
+	}
 }

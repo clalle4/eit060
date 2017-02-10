@@ -1,8 +1,11 @@
 package server;
 
+import java.util.ArrayList;
+
 public class Nurse extends User {
 	
 	private String division;
+	private ArrayList<String> patients;
 
 	public Nurse(String name, String password, String division) {
 		super(name, password);
@@ -19,11 +22,7 @@ public class Nurse extends User {
 		
 	}
 
-	@Override
-	public void authenticate() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	/**
 	 * A nurse may write to all records associated with him/her, and also read all records

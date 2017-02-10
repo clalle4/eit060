@@ -14,11 +14,7 @@ public class Gov extends User {
 		
 	}
 
-	@Override
-	public void authenticate() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	//A government agency is allowed to delete all types of records.
 	public void delete() {

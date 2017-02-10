@@ -12,10 +12,6 @@ public class Patient extends User {
 		
 	}
 
-	@Override
-	public void authenticate() {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 }
