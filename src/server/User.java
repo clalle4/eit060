@@ -1,7 +1,7 @@
 package server;
 
 public abstract class User {
-	
+	// testing my first push
 	private String name;
 	private String password;
 	
