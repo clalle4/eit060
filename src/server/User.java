@@ -1,4 +1,4 @@
-package eit060;
+package server;
 
 public abstract class User {
 	

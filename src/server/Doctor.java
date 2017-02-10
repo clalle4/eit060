@@ -1,4 +1,4 @@
-package eit060;
+package server;
 
 public class Doctor extends Nurse {
 
