@@ -1,10 +1,12 @@
 package server;
 
 public class Nurse extends User {
+	
+	private String division;
 
-	public Nurse(String name, String password) {
+	public Nurse(String name, String password, String division) {
 		super(name, password);
-		// TODO Auto-generated constructor stub
+		this.division = division;
 	}
 
 	/**
