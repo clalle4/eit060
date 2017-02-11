@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Nurse extends User {
 
 	private Division division;
-	private ArrayList<String> patients;
+	private ArrayList<String> patients = new ArrayList<String>();
 
 	public Nurse(String name) {
 		super(name);
