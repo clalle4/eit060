@@ -19,7 +19,6 @@ public class Gov extends User {
 	// A government agency is allowed to read all types of records.
 	@Override
 	protected boolean isReadRequestAvailable(String FILENAME) {
-	
 		return true;
 	}
 
