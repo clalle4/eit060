@@ -21,24 +21,29 @@ public String toString(){
 	/**Writes the content of a patients records
 	 * @param FILENAME The name of the patient whose records you want to access
 	 * */
-	protected void read(String FILENAME) {
+	public String read(String FILENAME) {
+		StringBuilder contents = new StringBuilder();
 		if(isReadRequestAvailable(FILENAME)){
 			StringBuilder sb = new StringBuilder("./files/PatientRecords/");
 			sb.append(FILENAME);
 			sb.append(".txt");
+			
 		try (BufferedReader br = new BufferedReader(new FileReader(sb.toString()))) {
 
-			String sCurrentLine;
+			String currentLine;
 
-			while ((sCurrentLine = br.readLine()) != null) {
-				System.out.println(sCurrentLine);
+			while ((currentLine = br.readLine()) != null) {
+				contents.append(currentLine+"\n");
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return contents.toString();
 
 	}
+		contents.append("You are not allowed to access that file");
+		return contents.toString();
 	}
 	/* same authentication process for all users, implemented only here */
 	protected void authenticate() {
