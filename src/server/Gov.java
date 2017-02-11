@@ -1,6 +1,7 @@
 package server;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class Gov extends User {
 
@@ -25,9 +26,19 @@ public class Gov extends User {
 	}
 
 	@Override
-	protected void listAvailableFiles() {
-		// TODO Auto-generated method stub
+	public ArrayList<FileRights> listAvailableFiles() {
+		ArrayList<FileRights> records = new ArrayList<FileRights>();
 
+		File patientRecords = new File("./files/PatientRecords/");
+		File[] patientRecordList = patientRecords.listFiles();
+
+		if (patientRecordList != null) {
+			for (File fil : patientRecordList) {
+				records.add(new FileRights(fil.getName().replaceAll(".txt", ""), true, false));
+			}
+		}
+
+		return records;
 	}
 
 }

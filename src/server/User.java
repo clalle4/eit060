@@ -3,6 +3,7 @@ package server;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class User {
 	protected String name;
@@ -49,5 +50,5 @@ public String toString(){
 	**/
 	protected abstract boolean isReadRequestAvailable(String FILENAME);
 	
-	protected abstract void listAvailableFiles();
+	protected abstract ArrayList<FileRights> listAvailableFiles();
 }

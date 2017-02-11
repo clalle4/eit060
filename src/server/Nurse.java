@@ -35,8 +35,8 @@ public class Nurse extends User {
 	}
 
 	@Override
-	protected void listAvailableFiles() {
-		// TODO Auto-generated method stub
+	public ArrayList<FileRights> listAvailableFiles() {
+		return null;
 
 	}
 
