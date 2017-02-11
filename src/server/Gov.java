@@ -2,8 +2,8 @@ package server;
 
 public class Gov extends User {
 
-	public Gov(String name, String password) {
-		super(name, password);
+	public Gov(String name) {
+		super(name);
 		// TODO Auto-generated constructor stub
 	}
 

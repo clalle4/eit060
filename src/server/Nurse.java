@@ -7,9 +7,8 @@ public class Nurse extends User {
 	private Division division;
 	private ArrayList<String> patients;
 
-	public Nurse(String name, String password, Division division) {
-		super(name, password);
-		this.division = division;
+	public Nurse(String name) {
+		super(name);
 	}
 
 	/**

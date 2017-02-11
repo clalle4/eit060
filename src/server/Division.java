@@ -31,7 +31,6 @@ public class Division {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		System.out.println(patients.toString());
 	}
 
 	public boolean isPatientPartOfYou(String FILENAME) {

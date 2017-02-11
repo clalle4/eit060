@@ -8,11 +8,15 @@ public abstract class User {
 	protected String name;
 	private String password;
 
-	public User(String name, String password) {
+	public User(String name) {
 		this.name = name;
-		this.password = password;
 	}
-
+	/**
+	 * remove this for the final version 
+	 **/
+public String toString(){
+	return name;
+}
 	/**Writes the content of a patients records
 	 * @param FILENAME The name of the patient whose records you want to access
 	 * */
