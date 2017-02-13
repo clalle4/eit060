@@ -11,7 +11,7 @@ public class User_read {
 	@Test
 	public void test_UserReadPatient1() {
 		Patient a = new Patient("Alice");
-			assertEquals(a.read("Alice"), "D1"); 
+			assertEquals(a.read("Alice"), "Alice Info"); 
 		
 	}
 	@Test
@@ -33,7 +33,7 @@ public class User_read {
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
 		Nurse a = new Nurse("Nurse1", b);
-			assertEquals(a.read("Bob"), "D1");
+			assertEquals(a.read("Bob"), "Bob Info");
 		
 	}
 
