@@ -13,9 +13,7 @@ public class FileRights {
 		
 	}
 	public String toString(){
-		StringBuilder sb = new StringBuilder("Name: "+name+"   Read: "+read+"   Write: "+write);
+		StringBuilder sb = new StringBuilder("Name: "+name+"   Read: "+read+"   Write: "+write );
 		return sb.toString();
 	}
-	
-
 }

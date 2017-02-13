@@ -34,6 +34,9 @@ public class Division {
 		}
 	}
 
+	public ArrayList<String> getPatientList(){
+		return patients;
+	}
 	public boolean isPatientPartOfYou(String FILENAME) {
 		if (patients.contains(FILENAME)) {
 			return true;
