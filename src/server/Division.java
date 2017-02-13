@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Division {
-
+	String name;
 	private ArrayList<String> patients= new ArrayList<String>();
 
 	public Division(String FILENAME) {
+		name= FILENAME;
 		readDivisionFile(FILENAME);
 	}
 
@@ -38,6 +39,9 @@ public class Division {
 			return true;
 		}
 		return false;
+	}
+	public String getName(){
+		return name;
 	}
 
 }

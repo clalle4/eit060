@@ -36,9 +36,9 @@ public class Hub {
 
 					while ((currentLine = br.readLine()) != null) {
 						if (currentLine.equals("Doctor")) {
-							users.add(new Doctor(fil.getName().replaceAll(".txt", "")));
+							users.add(new Doctor(fil.getName().replaceAll(".txt", ""), divisions));
 						} else if (currentLine.equals("Nurse")) {
-							users.add(new Nurse(fil.getName().replaceAll(".txt", "")));
+							users.add(new Nurse(fil.getName().replaceAll(".txt", ""), divisions));
 						} else if (currentLine.equals("Gov")) {
 							users.add(new Gov(fil.getName().replaceAll(".txt", "")));
 						}

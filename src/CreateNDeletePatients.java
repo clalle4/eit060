@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import org.junit.Test;
 
@@ -14,7 +15,9 @@ public class CreateNDeletePatients {
 	@Test
 	public void testCreatePatient1() {
 		boolean madeIt = false;
-		Doctor d = new Doctor("Adam");
+		ArrayList<Division> b = new ArrayList<Division>();
+		b.add(new Division("D1"));
+		Doctor d = new Doctor("Doctor1",b);
 		d.createPatient("Pepepepepepepepepepepepe Bichiguso Maru");
 
 		File Dir = new File("./files/PatientRecords/");
@@ -42,8 +45,9 @@ public class CreateNDeletePatients {
 		} catch (IOException e) {
 			// do something
 		}
-
-		Doctor d = new Doctor("Adam");
+		ArrayList<Division> b = new ArrayList<Division>();
+		b.add(new Division("D1"));
+		Doctor d = new Doctor("Doctor1",b);
 		assertFalse(d.createPatient("Pepepepepepepepepepepepe Bichiguso Maru"));
 		File destructable = new File("./files/PatientRecords/Pepepepepepepepepepepepe Bichiguso Maru.txt");
 		destructable.delete();

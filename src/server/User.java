@@ -32,8 +32,10 @@ public String toString(){
 
 			String currentLine;
 
+			if((currentLine = br.readLine()) != null){}
+			contents.append(currentLine);
 			while ((currentLine = br.readLine()) != null) {
-				contents.append(currentLine+"\n");
+				contents.append("\n"+currentLine);
 			}
 
 		} catch (IOException e) {
@@ -56,4 +58,9 @@ public String toString(){
 	protected abstract boolean isReadRequestAvailable(String FILENAME);
 	
 	protected abstract ArrayList<FileRights> listAvailableFiles();
+	
+	//remove this
+	public void setName(String n){
+		name=n;
+	}
 }

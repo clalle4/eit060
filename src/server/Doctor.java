@@ -3,11 +3,12 @@ package server;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class Doctor extends Nurse {
 
-	public Doctor(String name) {
-		super(name);
+	public Doctor(String name, ArrayList<Division> divisions) {
+		super(name,divisions );
 		// TODO Auto-generated constructor stub
 	}
 
