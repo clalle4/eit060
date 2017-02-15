@@ -35,7 +35,7 @@ public String toString(){
 			if((currentLine = br.readLine()) != null){}
 			contents.append(currentLine);
 			while ((currentLine = br.readLine()) != null) {
-				contents.append("\n"+currentLine);
+				contents.append(System.lineSeparator()+currentLine);
 			}
 
 		} catch (IOException e) {
@@ -59,8 +59,4 @@ public String toString(){
 	
 	protected abstract ArrayList<FileRights> listAvailableFiles();
 	
-	//remove this
-	public void setName(String n){
-		name=n;
-	}
 }

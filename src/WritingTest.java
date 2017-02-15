@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import server.*;
@@ -12,8 +14,23 @@ public class WritingTest {
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
 		Nurse a = new Nurse("Nurse1", b);
-		a.write("Demi", "Demi Info\nwritten new info");
-		assertEquals(a.read("Demi"), "Demi Info\nwritten new info");
+		a.write("Demi", "Demi Info"+  System.lineSeparator() + "written new info");
+		assertEquals(a.read("Demi"), "Demi Info"+  System.lineSeparator() + "written new info");
+		
+		
+		// remaking original file
+		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
+		sb.append("Demi");
+		sb.append(".txt");
+		
+		try{
+		    PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
+		    writer.print("Demi Info");
+		    writer.close();
+		} catch (IOException e) {
+		   // do something
+		}
+		
 	}
 
 }

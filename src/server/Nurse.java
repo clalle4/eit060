@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class Nurse extends User {
@@ -55,8 +56,18 @@ public class Nurse extends User {
 	 * A nurse may write to all records associated with him/her, and also read
 	 * all records associated with the same division.
 	 **/
-	public void write(String FILENAME, String text) {
-
+	public void write(String FILENAME, String text) {// this will replace old file
+		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
+		sb.append(FILENAME);
+		sb.append(".txt");
+		
+		try{
+		    PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
+		    writer.print(text);
+		    writer.close();
+		} catch (IOException e) {
+		   // do something
+		}
 	}
 
 	/**
