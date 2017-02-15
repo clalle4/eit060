@@ -55,7 +55,7 @@ public class Nurse extends User {
 	 * A nurse may write to all records associated with him/her, and also read
 	 * all records associated with the same division.
 	 **/
-	public void write() {
+	public void write(String FILENAME, String text) {
 
 	}
 
