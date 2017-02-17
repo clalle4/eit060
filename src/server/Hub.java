@@ -10,7 +10,6 @@ import java.util.HashMap;
 public class Hub {
 	private HashMap<String,User> users = new HashMap<String,User>();
 	private ArrayList<Division> divisions = new ArrayList<Division>();
-	
 	public Hub() {
 		startUp();
 	}
@@ -75,6 +74,10 @@ public class Hub {
 	public String readRequest(String[] request){
 		return users.get(request[2]).read(request[1]);
 	}
+	//does not work atm :/
+	public String writeRequest(String[] request){
+		return users.get(request[2]).writeLog(request[1],request[2]);
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -91,6 +94,10 @@ public class Hub {
 	 * 
 	 * **/
 	public boolean login(String[] login){
+		System.out.println(login[0]+":"+login[1]);
+		if(users.get(login[0])==null){
+			return false;
+		}
 		return users.get(login[0]).authenticate(login[0], login[1]);
 	}
 }
