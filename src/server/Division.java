@@ -9,11 +9,6 @@ import java.util.List;
 
 public class Division extends ArrayList<String> {
 	String name;
-<<<<<<< HEAD
-	//private ArrayList<String> patients= new ArrayList<String>();
-=======
-	private ArrayList<String> patients = new ArrayList<String>();
->>>>>>> origin/master
 
 	public Division(String FILENAME) {
 		name = FILENAME;
@@ -37,13 +32,9 @@ public class Division extends ArrayList<String> {
 		}
 	}
 
-<<<<<<< HEAD
 	public ArrayList<String> getPatientList(){
 		return this;
-=======
-	public ArrayList<String> getPatientList() {
-		return patients;
->>>>>>> origin/master
+
 	}
 
 	public boolean isPatientPartOfYou(String FILENAME) {
