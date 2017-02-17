@@ -24,7 +24,8 @@ public class WritingTest {
 
 		try {
 			PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
-			writer.print("Demi Info");
+			writer.print("Name: Demi" + System.lineSeparator() + "Password: " + System.lineSeparator()
+					+ "ID: 9405067890" + System.lineSeparator() + "Info: Sjukdom4");
 			writer.close();
 		} catch (IOException e) {
 			// do something
