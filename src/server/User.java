@@ -58,10 +58,10 @@ public abstract class User {
 
 	/* same authentication process for all users, implemented only here */
 	protected boolean authenticate(String username, String password) {
-		int hash = password.hashCode();
+		int hash = password.
 		
-		File file = new File("./files/PatientRecords/");
-		File[] patientRecordList = file.listFiles();
+		File f = new File("./files/PatientRecords/");
+		File[] patientRecordList = f.listFiles();
 		
 		StringBuilder contents = new StringBuilder();
 		BufferedReader br = null;
@@ -77,7 +77,12 @@ public abstract class User {
 						String currentLine = br.readLine();
 						currentLine = br.readLine();
 						String passWithSalt = currentLine.substring(10);
-						int passWithoutSalt = Integer.parseInt(passWithSalt.substring(2));
+						int passWithoutSalt = 0;
+						if (passWithSalt.substring(0).equals("-")) {
+							passWithoutSalt = Integer.parseInt(passWithSalt.substring(3));
+						} else {
+							passWithoutSalt = Integer.parseInt(passWithSalt.substring(2));
+						}
 						if (hash == passWithoutSalt) {
 							return true;
 						} else {
