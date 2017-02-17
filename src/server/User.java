@@ -62,11 +62,12 @@ public abstract class User {
 	/* same authentication process for all users, implemented only here */
 	protected boolean authenticate(String username, String password) {
 		MessageDigest md;
-		byte[] hash = password.getBytes();
+		
 		try {
 			md = MessageDigest.getInstance("SHA-512");
+			byte[] hash = password.getBytes();
 			md.update(hash);
-			hash = md.digest();
+			hash = md.digest(hash);
 			
 			File f = new File("./files/PatientRecords/");
 			File[] patientRecordList = f.listFiles();
@@ -85,9 +86,10 @@ public abstract class User {
 							String currentLine = br.readLine();
 							currentLine = br.readLine();
 							String passWithSalt = currentLine.substring(10);
-							String passWithoutSalt;
-							passWithoutSalt = passWithSalt.substring(2);
-							byte[] bytePass = passWithoutSalt.getBytes();
+							//String passWithoutSalt;
+							//passWithoutSalt = passWithSalt.substring(2);
+							//byte[] bytePass = passWithoutSalt.getBytes();
+							byte[] bytePass = passWithSalt.getBytes();
 							if (MessageDigest.isEqual(hash, bytePass)) {
 								return true;
 							} else {

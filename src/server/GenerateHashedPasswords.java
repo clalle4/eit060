@@ -17,7 +17,7 @@ public class GenerateHashedPasswords {
 			e.printStackTrace();
 		}
 		
-		//Lösenorden i klartext + salt
+		//Lösenorden i klartext
 		String alicePass =  "%Alice*Pass";
 		System.out.println("Alices okrypterade lösenord: " + alicePass);
 		
@@ -31,21 +31,25 @@ public class GenerateHashedPasswords {
 		System.out.println("\n");
 		
 		//Lösenorden hashas
-		String salt = String.valueOf(rand.nextInt(10)) + String.valueOf(rand.nextInt(10));
+		//String salt = String.valueOf(rand.nextInt(10)) + String.valueOf(rand.nextInt(10));
+//		StringBuilder totPass = new StringBuilder();
+//		totPass.append(salt);
+//		totPass.append(alicePass);
+//		
+//		System.out.println("Alices totala o-hashade lösenord: " + totPass.toString());
 		
 		byte[] aliceHash = alicePass.getBytes();
 		md.update(aliceHash);
-		md.update(salt.getBytes());
 		aliceHash = md.digest(aliceHash);
 		System.out.println("Alices krypterade lösenord: " + aliceHash);
 		
 		System.out.println("\n");
 		
-//		User u = new Patient("Alice");
-//		if (u.authenticate("Alice", "%Alice*Pass")) {
-//			System.out.println("Autentiseringsmetoden fungerar. :)");
-//		} else {
-//			System.out.println("Autentiseringsmetoden fungerar inte. :(");
-//		}
+		User u = new Patient("Alice");
+		if (u.authenticate("Alice", "%Alice*Pass")) {
+			System.out.println("Autentiseringsmetoden fungerar. :)");
+		} else {
+			System.out.println("Autentiseringsmetoden fungerar inte. :(");
+		}
 	}
 }
