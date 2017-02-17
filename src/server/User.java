@@ -58,7 +58,7 @@ public abstract class User {
 
 	/* same authentication process for all users, implemented only here */
 	protected boolean authenticate(String username, String password) {
-		int hash = password.
+		int hash = password.hashCode();
 		
 		File f = new File("./files/PatientRecords/");
 		File[] patientRecordList = f.listFiles();
