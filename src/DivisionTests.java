@@ -11,16 +11,19 @@ public class DivisionTests {
 		Division d = new Division("D1");
 		assertTrue(d.isPatientPartOfYou("Alise"));
 	}
+
 	@Test
 	public void testDivisions2() {
 		Division d = new Division("D1");
 		assertTrue(d.isPatientPartOfYou("Bob"));
 	}
+
 	@Test
 	public void testDivisions3() {
 		Division d = new Division("D1");
 		assertFalse(d.isPatientPartOfYou("Connor"));
 	}
+
 	@Test
 	public void testDivisions4() {
 		Division d = new Division("D1");

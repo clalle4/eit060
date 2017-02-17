@@ -19,7 +19,11 @@ public class Hub {
 		readUserFiles();
 	}
 
+<<<<<<< HEAD
 	/*
+=======
+	/**
+>>>>>>> origin/master
 	 * Fills the "users" list with the users saved in files
 	 */
 	private void readUserFiles() {
@@ -53,7 +57,11 @@ public class Hub {
 		}
 	}
 
+<<<<<<< HEAD
 	/*
+=======
+	/**
+>>>>>>> origin/master
 	 * Fills the "divisions" list with the divisions saved in files
 	 */
 	private void readDivisionFiles() {

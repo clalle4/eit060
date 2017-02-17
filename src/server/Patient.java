@@ -29,7 +29,7 @@ public class Patient extends User {
 		if (patientRecordList != null) {
 			for (File fil : patientRecordList) {
 				if (name.equals(fil.getName().replaceAll(".txt", ""))) {
-					records.add(new FileRights(name,true,false));
+					records.add(new FileRights(name, true, false));
 					return records;
 				}
 			}

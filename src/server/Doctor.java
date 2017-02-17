@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Doctor extends Nurse {
 
 	public Doctor(String name, ArrayList<Division> divisions) {
-		super(name,divisions );
+		super(name, divisions);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -22,6 +22,7 @@ public class Doctor extends Nurse {
 		File[] userlist = usersDir.listFiles();
 
 		if (userlist != null) {
+			// see if this patient already exists
 			for (File fil : userlist) {
 				if (FILENAME.equals(fil.getName().replaceAll(".txt", ""))) {
 					return false;

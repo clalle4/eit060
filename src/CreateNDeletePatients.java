@@ -17,7 +17,7 @@ public class CreateNDeletePatients {
 		boolean madeIt = false;
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
-		Doctor d = new Doctor("Doctor1",b);
+		Doctor d = new Doctor("Doctor1", b);
 		d.createPatient("Pepepepepepepepepepepepe Bichiguso Maru");
 
 		File Dir = new File("./files/PatientRecords/");
@@ -47,7 +47,7 @@ public class CreateNDeletePatients {
 		}
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
-		Doctor d = new Doctor("Doctor1",b);
+		Doctor d = new Doctor("Doctor1", b);
 		assertFalse(d.createPatient("Pepepepepepepepepepepepe Bichiguso Maru"));
 		File destructable = new File("./files/PatientRecords/Pepepepepepepepepepepepe Bichiguso Maru.txt");
 		destructable.delete();
@@ -58,16 +58,17 @@ public class CreateNDeletePatients {
 	public void testDeletePatient1() {
 		try {
 
-			PrintWriter writer = new PrintWriter("./files/PatientRecords/Pepepepepepepepepepepepe Bichiguso Maru.txt","UTF-8");
+			PrintWriter writer = new PrintWriter("./files/PatientRecords/Pepepepepepepepepepepepe Bichiguso Maru.txt",
+					"UTF-8");
 			writer.close();
 		} catch (IOException e) {
 			// do something
 		}
-		
+
 		boolean itIsThere = false;
 		Gov g = new Gov("Lasse");
 		g.delete("Pepepepepepepepepepepepe Bichiguso Maru");
-		
+
 		File Dir = new File("./files/PatientRecords/");
 		File[] list = Dir.listFiles();
 		if (list != null)
