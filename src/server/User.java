@@ -2,10 +2,12 @@ package server;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import javax.crypto.*;
 
 public abstract class User {
 	protected String name;
@@ -26,7 +28,7 @@ public abstract class User {
 	 * Writes the content of a patients records
 	 * 
 	 * @param FILENAME
-	 *            The name of the patient whose records you want to access
+	 * The name of the patient whose records you want to access
 	 */
 	public String read(String FILENAME) {
 		StringBuilder contents = new StringBuilder();
@@ -40,8 +42,9 @@ public abstract class User {
 				String currentLine;
 
 				if ((currentLine = br.readLine()) != null) {
+					contents.append(currentLine);
 				}
-				contents.append(currentLine);
+				
 				while ((currentLine = br.readLine()) != null) {
 					contents.append(System.lineSeparator() + currentLine);
 				}
@@ -58,49 +61,54 @@ public abstract class User {
 
 	/* same authentication process for all users, implemented only here */
 	protected boolean authenticate(String username, String password) {
-		int hash = password.hashCode();
-		
-		File f = new File("./files/PatientRecords/");
-		File[] patientRecordList = f.listFiles();
-		
-		StringBuilder contents = new StringBuilder();
-		BufferedReader br = null;
-
-		if (patientRecordList != null) {
+		MessageDigest md;
+		byte[] hash = password.getBytes();
+		try {
+			md = MessageDigest.getInstance("SHA-512");
+			md.update(hash);
+			hash = md.digest();
 			
-			for (File fil : patientRecordList) {
+			File f = new File("./files/PatientRecords/");
+			File[] patientRecordList = f.listFiles();
+			
+			StringBuilder contents = new StringBuilder();
+			BufferedReader br = null;
+
+			if (patientRecordList != null) {
 				
-				if (name.equals(fil.getName().replaceAll(".txt", ""))) {
+				for (File fil : patientRecordList) {
 					
-					try {
-						br = new BufferedReader(new FileReader("./files/PatientRecords/" + name + ".txt"));
-						String currentLine = br.readLine();
-						currentLine = br.readLine();
-						String passWithSalt = currentLine.substring(10);
-						int passWithoutSalt = 0;
-						if (passWithSalt.substring(0).equals("-")) {
-							passWithoutSalt = Integer.parseInt(passWithSalt.substring(3));
-						} else {
-							passWithoutSalt = Integer.parseInt(passWithSalt.substring(2));
-						}
-						if (hash == passWithoutSalt) {
-							return true;
-						} else {
-							return false;
-						}
+					if (name.equals(fil.getName().replaceAll(".txt", ""))) {
 						
-					} catch (IOException e) {
-						e.printStackTrace();
-						System.err.println("Could not find user.");
-					} finally {
 						try {
-							br.close();
+							br = new BufferedReader(new FileReader("./files/PatientRecords/" + name + ".txt"));
+							String currentLine = br.readLine();
+							currentLine = br.readLine();
+							String passWithSalt = currentLine.substring(10);
+							String passWithoutSalt;
+							passWithoutSalt = passWithSalt.substring(2);
+							byte[] bytePass = passWithoutSalt.getBytes();
+							if (MessageDigest.isEqual(hash, bytePass)) {
+								return true;
+							} else {
+								return false;
+							}
+							
 						} catch (IOException e) {
 							e.printStackTrace();
+							System.err.println("Could not find user.");
+						} finally {
+							try {
+								br.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 					}
 				}
 			}
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
