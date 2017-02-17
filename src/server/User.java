@@ -24,7 +24,6 @@ public abstract class User {
 
 	/**
 	 * Writes the content of a patients records
-	 * testing to comit, remove this text
 	 * @param FILENAME
 	 *            The name of the patient whose records you want to access
 	 */
