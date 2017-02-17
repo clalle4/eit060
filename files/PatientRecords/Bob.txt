@@ -1,1 +1,4 @@
-Bob Info
+Name: Bob
+Password: 
+ID: 9203045678
+Info: Sjukdom2
