@@ -41,12 +41,28 @@ public class server implements Runnable {
 
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
+				try{					
+					String[] MsgContent = clientMsg.split(":");
+				switch(clientMsg.charAt(0)){
+				case '1':
+					out.println(handleRead(MsgContent));
+					break;
+				case '2':
+					out.println(handleWrite(MsgContent));
+					break;
+				}
+				}catch(NullPointerException e){
+					out.println("Wrong format, please review line.");
+					out.flush();
+				}
+				/* The old program
 				String rev = new StringBuilder(clientMsg).reverse().toString();
 				System.out.println("received '" + clientMsg + "' from client");
 				System.out.print("sending '" + rev + "' to client...");
 				out.println(rev);
 				out.flush();
 				System.out.println("done\n");
+				 */
 			}
 			in.close();
 			out.close();
@@ -113,5 +129,11 @@ public class server implements Runnable {
 			return ServerSocketFactory.getDefault();
 		}
 		return null;
+	}
+	private String handleRead(String[] user){
+		return user[1]+" read, it was very interesting thank you";
+	}
+	private String handleWrite(String[] user){
+		return user[1]+" log written: '" +user[2]+"'";
 	}
 }

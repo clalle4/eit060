@@ -84,19 +84,34 @@ public class client {
 			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String msg;
+			//Current design states that a request worded as "task:user" 
+			//If more is required further should be requested as with Write
+			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person");
 			for (;;) {
 				System.out.print(">");
 				msg = read.readLine();
-				if (msg.equalsIgnoreCase("quit")) {
+				if (msg.charAt(0)=='0') {
 					break;
+				} else if(msg.charAt(0) == '2'){
+					System.out.println("New entry in "+msg.split(":")[1] + "'s log:");
+					System.out.print(">");
+					msg = msg+":"+read.readLine();
 				}
+					out.println(msg);
+					out.flush();
+					System.out.println("Request sent.\n...");
+					System.out.println("received: " + in.readLine());
+			}
+				
+				/*
+				This is the original request
 				System.out.print("sending '" + msg + "' to server...");
 				out.println(msg);
 				out.flush();
 				System.out.println("done");
-
 				System.out.println("received '" + in.readLine() + "' from server\n");
-			}
+				*/
+			
 			in.close();
 			out.close();
 			read.close();
