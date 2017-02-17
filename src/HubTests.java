@@ -7,7 +7,7 @@ public class HubTests {
 	@Test
 	public void test() {
 	Hub b = new Hub();
-	assertEquals("[[Alise, Bob], [Connor, Demi]][Doctor1, Doctor2, Gov, Nurse1, Nurse2, Nurse3]",b.toString());
+	assertEquals("[[Alice, Bob], [Connor, Demi]]{Nurse1=Nurse1, Nurse2=Nurse2, Nurse3=Nurse3, Doctor2=Doctor2, Doctor1=Doctor1, Gov=Gov}",b.toString());
 	}
 
 }

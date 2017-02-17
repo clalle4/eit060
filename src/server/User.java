@@ -24,6 +24,7 @@ public abstract class User {
 
 	/**
 	 * Writes the content of a patients records
+	 * 
 	 * @param FILENAME
 	 *            The name of the patient whose records you want to access
 	 */
@@ -34,12 +35,18 @@ public abstract class User {
 			sb.append(FILENAME);
 			sb.append(".txt");
 
-			try  {
+			try {
 				BufferedReader br = new BufferedReader(new FileReader(sb.toString()));
 				String currentLine = br.readLine();
+
+				if (currentLine != null) {
+					contents.append(currentLine);
+					currentLine = br.readLine();
+				}
+
 				while (currentLine != null) {
 					contents.append(System.lineSeparator() + currentLine);
-					currentLine = br.readLine();				
+					currentLine = br.readLine();
 				}
 
 			} catch (IOException e) {
@@ -55,19 +62,19 @@ public abstract class User {
 	/* same authentication process for all users, implemented only here */
 	protected boolean authenticate(String username, String password) {
 		int hash = password.hashCode();
-		
+
 		File file = new File("./files/PatientRecords/");
 		File[] patientRecordList = file.listFiles();
-		
+
 		StringBuilder contents = new StringBuilder();
 		BufferedReader br = null;
 
 		if (patientRecordList != null) {
-			
+
 			for (File fil : patientRecordList) {
-				
+
 				if (name.equals(fil.getName().replaceAll(".txt", ""))) {
-					
+
 					try {
 						br = new BufferedReader(new FileReader("./files/PatientRecords/" + name + ".txt"));
 						String currentLine = br.readLine();
@@ -79,7 +86,7 @@ public abstract class User {
 						} else {
 							return false;
 						}
-						
+
 					} catch (IOException e) {
 						e.printStackTrace();
 						System.err.println("Could not find user.");

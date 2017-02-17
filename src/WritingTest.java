@@ -15,7 +15,7 @@ public class WritingTest {
 		b.add(new Division("D1"));
 		Nurse a = new Nurse("Nurse1", b);
 		a.write("Demi", "Demi Info" + System.lineSeparator() + "written new info");
-		assertEquals(a.read("Demi"), "Demi Info" + System.lineSeparator() + "written new info");
+		assertEquals( "Demi Info" + System.lineSeparator() + "written new info",a.read("Demi"));
 
 		// remaking original file
 		StringBuilder sb = new StringBuilder("./files/PatientRecords/");

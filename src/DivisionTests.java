@@ -9,7 +9,7 @@ public class DivisionTests {
 	@Test
 	public void testDivisions1() {
 		Division d = new Division("D1");
-		assertTrue(d.isPatientPartOfYou("Alise"));
+		assertTrue(d.isPatientPartOfYou("Alice"));
 	}
 
 	@Test
