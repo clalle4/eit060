@@ -44,5 +44,16 @@ public class User_listAvailableFilesTests {
 				r.toString());
 
 	}
+	@Test
+	public void test_listAvailableFilesDoctor1() {
+		ArrayList<Division> b = new ArrayList<Division>();
+		b.add(new Division("D1"));
+		Nurse a = new Nurse("Doctor1", b);
+		ArrayList<FileRights> r = a.listAvailableFiles();
+		assertEquals(
+				"[Name: Alice   Read: true   Write: true, Name: Connor   Read: true   Write: true, Name: JugemJugem   Read: true   Write: true, Name: Alice   Read: true   Write: false, Name: Alice   Read: true   Write: false, Name: Bob   Read: true   Write: false, Name: Bob   Read: true   Write: false, Name: Bob   Read: true   Write: false]",
+				r.toString());
+
+	}
 
 }

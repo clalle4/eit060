@@ -17,7 +17,7 @@ public class Doctor extends Nurse {
 	 * that the doctor is treating the patient. When creating the record, the
 	 * doctor also associates a nurse with the record.
 	 */
-	public boolean createPatient(String FILENAME) {
+	public boolean createPatient(String FILENAME,String text) {
 		File usersDir = new File("./files/PatientRecords/");
 		File[] userlist = usersDir.listFiles();
 
@@ -34,12 +34,12 @@ public class Doctor extends Nurse {
 			sb.append(FILENAME);
 			sb.append(".txt");
 			PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
+			writer.append(text);
 			writer.close();
 			return true;
 		} catch (IOException e) {
-			// do something
+			return false;
 		}
-		return false;
 	}
 
 }

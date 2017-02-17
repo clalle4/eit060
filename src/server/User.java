@@ -51,6 +51,7 @@ public abstract class User {
 						currentLine = br.readLine();
 					}
 				}
+				br.close();// needed for test createNdeletepatients with text
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

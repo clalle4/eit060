@@ -11,7 +11,7 @@ public class User_read {
 	@Test
 	public void test_UserReadPatient1() {
 		Patient a = new Patient("Alice");
-		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
+		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: [B@4e25154f"+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
 		
 	}
 
@@ -36,20 +36,20 @@ public class User_read {
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
 		Nurse a = new Nurse("Nurse1", b);
-		assertEquals("Name: Bob"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9203045678"+System.lineSeparator()+"Info: Sjukdom2",a.read("Bob"));
+		assertEquals("Name: Bob"+System.lineSeparator()+"Password: 1890552393"+System.lineSeparator()+"ID: 9203045678"+System.lineSeparator()+"Info: Sjukdom2",a.read("Bob"));
 
 	}
 
 	@Test
 	public void test_UserReadGov1() {
 		Gov a = new Gov("adam");
-		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
+		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: [B@4e25154f"+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
 	}
 	@Test
 	public void readThrouHubtest1() {
 		Hub b = new Hub();
 		String[] s = { "1", "Alice", "Doctor1" };
-		assertEquals("Name: Alice" + System.lineSeparator() + "Password: " + System.lineSeparator() + "ID: 9102034567"
+		assertEquals("Name: Alice" + System.lineSeparator() + "Password: [B@4e25154f" + System.lineSeparator() + "ID: 9102034567"
 				+ System.lineSeparator() + "Info: Sjukdom1", b.readRequest(s));
 	}
 
