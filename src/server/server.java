@@ -41,16 +41,26 @@ public class server implements Runnable {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			String clientMsg = null;
+			boolean auth = false;
+			String login = "0:0";
+			while(!auth){
+			login = in.readLine();
+			auth = hub.login(login.split(":"));
+			out.println(auth);
+			out.flush();
+			}
 			while ((clientMsg = in.readLine()) != null) {
 				try{				
 					System.out.println(clientMsg);
-					String[] MsgContent = clientMsg.split(":");
+					String[] MsgContent = (clientMsg+":"+login).split(":");
 				switch(clientMsg.charAt(0)){
 				case '1':
 					out.println(handleRead(MsgContent));
+					out.flush();
 					break;
 				case '2':
 					out.println(handleWrite(MsgContent));
+					out.flush();
 					break;
 				}
 				}catch(NullPointerException e){
@@ -138,6 +148,6 @@ public class server implements Runnable {
 	}
 	private String handleWrite(String[] request){
 		
-		return request[1]+" log written: '" +request[3]+"'";
+		return request[1]+" log written: '" +request[2]+"'";
 	}
 }

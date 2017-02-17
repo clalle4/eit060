@@ -78,4 +78,7 @@ public class Hub {
 
 		return sb.toString();
 	}
+	public boolean login(String[] login){
+		return users.get(login[0]).authenticate(login[0], login[1]);
+	}
 }
