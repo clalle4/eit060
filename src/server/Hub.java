@@ -18,9 +18,10 @@ public class Hub {
 		readDivisionFiles();
 		readUserFiles();
 	}
-/*
- * Fills the "users" list with the users saved in files
- * */
+
+	/*
+	 * Fills the "users" list with the users saved in files
+	 */
 	private void readUserFiles() {
 		File usersDir = new File("./files/Users/");
 		File[] userlist = usersDir.listFiles();
@@ -51,9 +52,10 @@ public class Hub {
 			}
 		}
 	}
-/*
- * Fills the "divisions" list with the divisions saved in files
- * */
+
+	/*
+	 * Fills the "divisions" list with the divisions saved in files
+	 */
 	private void readDivisionFiles() {
 		File divisionsDir = new File("./files/Divisions/");
 		File[] divisionlist = divisionsDir.listFiles();
@@ -62,6 +64,15 @@ public class Hub {
 			for (File fil : divisionlist) {
 				divisions.add(new Division(fil.getName().replaceAll(".txt", "")));
 			}
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(divisions.toString());
+		sb.append(users.toString());
+
+		return sb.toString();
 	}
 
 }
