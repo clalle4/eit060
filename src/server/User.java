@@ -1,6 +1,8 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ public abstract class User {
 	}
 
 	/**
-	 * remove this for the final version
+	 * Remove this for the final version
 	 **/
 	public String toString() {
 		return name;
@@ -55,8 +57,47 @@ public abstract class User {
 	}
 
 	/* same authentication process for all users, implemented only here */
-	protected void authenticate() {
+	protected boolean authenticate(String username, String password) {
+		int hash = password.hashCode();
+		
+		File file = new File("./files/PatientRecords/");
+		File[] patientRecordList = file.listFiles();
+		
+		StringBuilder contents = new StringBuilder();
+		BufferedReader br = null;
 
+		if (patientRecordList != null) {
+			
+			for (File fil : patientRecordList) {
+				
+				if (name.equals(fil.getName().replaceAll(".txt", ""))) {
+					
+					try {
+						br = new BufferedReader(new FileReader("./files/PatientRecords/" + name + ".txt"));
+						String currentLine = br.readLine();
+						currentLine = br.readLine();
+						String passWithSalt = currentLine.substring(10);
+						int passWithoutSalt = Integer.parseInt(passWithSalt.substring(2));
+						if (hash == passWithoutSalt) {
+							return true;
+						} else {
+							return false;
+						}
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+						System.err.println("Could not find user.");
+					} finally {
+						try {
+							br.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

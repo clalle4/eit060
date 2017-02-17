@@ -1,1 +1,4 @@
-Connor Info
+Name: Connor
+Password: 
+ID: 9304056789
+Info: Sjukdom3
