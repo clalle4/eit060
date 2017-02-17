@@ -1,1 +1,4 @@
-Alice Info
+Name: Alice
+Password: 
+ID: 
+Info: 
