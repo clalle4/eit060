@@ -11,14 +11,14 @@ public class User_read {
 	@Test
 	public void test_UserReadPatient1() {
 		Patient a = new Patient("Alice");
-		assertEquals(a.read("Alice"), "Alice Info");
-
+		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
+		
 	}
 
 	@Test
 	public void test_UserReadPatient2() {
 		Patient a = new Patient("Alice");
-		assertEquals(a.read("Bob"), "You are not allowed to access that file");
+		assertEquals( "You are not allowed to access that file",a.read("Bob"));
 
 	}
 
@@ -27,7 +27,7 @@ public class User_read {
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
 		Nurse a = new Nurse("Nurse1", b);
-		assertEquals(a.read("Connor"), "You are not allowed to access that file");
+		assertEquals( "You are not allowed to access that file",a.read("Connor"));
 
 	}
 
@@ -36,13 +36,13 @@ public class User_read {
 		ArrayList<Division> b = new ArrayList<Division>();
 		b.add(new Division("D1"));
 		Nurse a = new Nurse("Nurse1", b);
-		assertEquals(a.read("Bob"), "Bob Info");
+		assertEquals("Name: Bob"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9203045678"+System.lineSeparator()+"Info: Sjukdom2",a.read("Bob"));
 
 	}
 
 	@Test
 	public void test_UserReadGov1() {
 		Gov a = new Gov("adam");
-		assertEquals(a.read("Alice"), "Alice Info");
+		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
 	}
 }

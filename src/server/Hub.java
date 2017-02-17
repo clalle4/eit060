@@ -5,11 +5,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Hub {
-	private ArrayList<User> users = new ArrayList<User>();
+	private HashMap<String,User> users = new HashMap<String,User>();
 	private ArrayList<Division> divisions = new ArrayList<Division>();
-
+	
 	public Hub() {
 		startUp();
 	}
@@ -37,11 +38,11 @@ public class Hub {
 
 					while ((currentLine = br.readLine()) != null) {
 						if (currentLine.equals("Doctor")) {
-							users.add(new Doctor(fil.getName().replaceAll(".txt", ""), divisions));
+							users.put(fil.getName().replaceAll(".txt", ""),new Doctor(fil.getName().replaceAll(".txt", ""), divisions));
 						} else if (currentLine.equals("Nurse")) {
-							users.add(new Nurse(fil.getName().replaceAll(".txt", ""), divisions));
+							users.put(fil.getName().replaceAll(".txt", ""),new Nurse(fil.getName().replaceAll(".txt", ""), divisions));
 						} else if (currentLine.equals("Gov")) {
-							users.add(new Gov(fil.getName().replaceAll(".txt", "")));
+							users.put(fil.getName().replaceAll(".txt", ""),new Gov(fil.getName().replaceAll(".txt", "")));
 						}
 					}
 
@@ -65,5 +66,16 @@ public class Hub {
 				divisions.add(new Division(fil.getName().replaceAll(".txt", "")));
 			}
 	}
+	public String readRequest(String[] request){
+		return users.get(request[2]).read(request[1]);
+	}
 
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(divisions.toString());
+		sb.append(users.toString());
+
+		return sb.toString();
+	}
 }

@@ -11,7 +11,7 @@ import javax.security.cert.X509Certificate;
 public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
-
+	private Hub hub;
 	public server(ServerSocket ss) throws IOException {
 		serverSocket = ss;
 		newListener();
@@ -33,7 +33,8 @@ public class server implements Runnable {
 			System.out.println("serial number (serial number field): " + serial);
 
 			System.out.println(numConnectedClients + " concurrent connection(s)\n");
-
+			
+			hub = new Hub();
 			PrintWriter out = null;
 			BufferedReader in = null;
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -41,7 +42,8 @@ public class server implements Runnable {
 
 			String clientMsg = null;
 			while ((clientMsg = in.readLine()) != null) {
-				try{					
+				try{				
+					System.out.println(clientMsg);
 					String[] MsgContent = clientMsg.split(":");
 				switch(clientMsg.charAt(0)){
 				case '1':
@@ -52,8 +54,9 @@ public class server implements Runnable {
 					break;
 				}
 				}catch(NullPointerException e){
-					out.println("Wrong format, please review line.");
-					out.flush();
+					e.printStackTrace();
+					//out.println("Wrong format, please review line.");
+					//out.flush();
 				}
 				/* The old program
 				String rev = new StringBuilder(clientMsg).reverse().toString();
@@ -130,10 +133,11 @@ public class server implements Runnable {
 		}
 		return null;
 	}
-	private String handleRead(String[] user){
-		return user[1]+" read, it was very interesting thank you";
+	private String handleRead(String[] request){
+		return ("Log follows:\n"+hub.readRequest(request)+"\nEOF");
 	}
-	private String handleWrite(String[] user){
-		return user[1]+" log written: '" +user[2]+"'";
+	private String handleWrite(String[] request){
+		
+		return request[1]+" log written: '" +request[3]+"'";
 	}
 }

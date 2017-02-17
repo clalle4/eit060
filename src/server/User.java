@@ -37,18 +37,18 @@ public abstract class User {
 			sb.append(FILENAME);
 			sb.append(".txt");
 
-			try (BufferedReader br = new BufferedReader(new FileReader(sb.toString()))) {
-
-				String currentLine;
-
-				if ((currentLine = br.readLine()) != null) {
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(sb.toString()));
+				String currentLine = br.readLine();
+				if (currentLine != null) {
 					contents.append(currentLine);
+					currentLine = br.readLine();
+					
+					while (currentLine != null) {
+						contents.append(System.lineSeparator() + currentLine);
+						currentLine = br.readLine();
+					}
 				}
-				
-				while ((currentLine = br.readLine()) != null) {
-					contents.append(System.lineSeparator() + currentLine);
-				}
-
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -80,7 +80,7 @@ public abstract class User {
 				for (File fil : patientRecordList) {
 					
 					if (name.equals(fil.getName().replaceAll(".txt", ""))) {
-						
+
 						try {
 							br = new BufferedReader(new FileReader("./files/PatientRecords/" + name + ".txt"));
 							String currentLine = br.readLine();

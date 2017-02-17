@@ -40,7 +40,7 @@ public class User_listAvailableFilesTests {
 		Nurse a = new Nurse("Nurse1", b);
 		ArrayList<FileRights> r = a.listAvailableFiles();
 		assertEquals(
-				"[Name: Demi   Read: true   Write: true, Name: Alise   Read: true   Write: false, Name: Bob   Read: true   Write: false]",
+				"[Name: Demi   Read: true   Write: true, Name: Alice   Read: true   Write: false, Name: Bob   Read: true   Write: false]",
 				r.toString());
 
 	}
