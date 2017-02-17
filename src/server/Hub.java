@@ -69,4 +69,13 @@ public class Hub {
 	public String readRequest(String[] request){
 		return users.get(request[2]).read(request[1]);
 	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(divisions.toString());
+		sb.append(users.toString());
+
+		return sb.toString();
+	}
 }

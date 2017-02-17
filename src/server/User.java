@@ -24,7 +24,6 @@ public abstract class User {
 
 	/**
 	 * Writes the content of a patients records
-	 * 
 	 * @param FILENAME
 	 *            The name of the patient whose records you want to access
 	 */

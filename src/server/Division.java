@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Division {
+public class Division extends ArrayList<String> {
 	String name;
-	private ArrayList<String> patients = new ArrayList<String>();
 
 	public Division(String FILENAME) {
 		name = FILENAME;
@@ -25,7 +24,7 @@ public class Division {
 			String currentLine;
 
 			while ((currentLine = br.readLine()) != null) {
-				patients.add(currentLine);
+				this.add(currentLine);
 			}
 
 		} catch (IOException e) {
@@ -33,12 +32,13 @@ public class Division {
 		}
 	}
 
-	public ArrayList<String> getPatientList() {
-		return patients;
+	public ArrayList<String> getPatientList(){
+		return this;
+
 	}
 
 	public boolean isPatientPartOfYou(String FILENAME) {
-		if (patients.contains(FILENAME)) {
+		if (this.contains(FILENAME)) {
 			return true;
 		}
 		return false;
@@ -47,5 +47,4 @@ public class Division {
 	public String getName() {
 		return name;
 	}
-
 }
