@@ -35,15 +35,12 @@ public abstract class User {
 			sb.append(FILENAME);
 			sb.append(".txt");
 
-			try (BufferedReader br = new BufferedReader(new FileReader(sb.toString()))) {
-
-				String currentLine;
-
-				if ((currentLine = br.readLine()) != null) {
-				}
-				contents.append(currentLine);
-				while ((currentLine = br.readLine()) != null) {
+			try  {
+				BufferedReader br = new BufferedReader(new FileReader(sb.toString()));
+				String currentLine = br.readLine();
+				while (currentLine != null) {
 					contents.append(System.lineSeparator() + currentLine);
+					currentLine = br.readLine();				
 				}
 
 			} catch (IOException e) {

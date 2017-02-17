@@ -134,11 +134,10 @@ public class server implements Runnable {
 		return null;
 	}
 	private String handleRead(String[] request){
-		hub.readRequest(request);
-		return request[1]+" read, it was very interesting thank you";
+		return ("Log follows:\n"+hub.readRequest(request)+"\nEOF");
 	}
 	private String handleWrite(String[] request){
 		
-		return request[1]+" log written: '" +request[4]+"'";
+		return request[1]+" log written: '" +request[3]+"'";
 	}
 }

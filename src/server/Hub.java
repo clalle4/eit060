@@ -67,7 +67,6 @@ public class Hub {
 			}
 	}
 	public String readRequest(String[] request){
-		//*authenticate*
 		return users.get(request[2]).read(request[1]);
 	}
 }
