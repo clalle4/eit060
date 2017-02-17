@@ -45,4 +45,20 @@ public class User_read {
 		Gov a = new Gov("adam");
 		assertEquals( "Name: Alice"+System.lineSeparator()+"Password: "+System.lineSeparator()+"ID: 9102034567"+System.lineSeparator()+"Info: Sjukdom1",a.read("Alice"));
 	}
+	@Test
+	public void readThrouHubtest1() {
+		Hub b = new Hub();
+		String[] s = { "1", "Alice", "Doctor1" };
+		assertEquals("Name: Alice" + System.lineSeparator() + "Password: " + System.lineSeparator() + "ID: 9102034567"
+				+ System.lineSeparator() + "Info: Sjukdom1", b.readRequest(s));
+	}
+
+	@Test
+	public void readThrouHubtest2() {
+		Hub b = new Hub();
+		String[] s = { "1", "Demi", "Doctor1" };
+		assertEquals("You are not allowed to access that file", b.readRequest(s));
+	}
+	
+	
 }

@@ -66,6 +66,12 @@ public class Hub {
 				divisions.add(new Division(fil.getName().replaceAll(".txt", "")));
 			}
 	}
+	/**
+	 * point 0 = action
+	 * point 1 is object
+	 * point 2 is subject
+	 * 
+	 * **/
 	public String readRequest(String[] request){
 		return users.get(request[2]).read(request[1]);
 	}
@@ -78,6 +84,12 @@ public class Hub {
 
 		return sb.toString();
 	}
+	
+	/**
+	 * point 0 = name
+	 * point 1 = password
+	 * 
+	 * **/
 	public boolean login(String[] login){
 		return users.get(login[0]).authenticate(login[0], login[1]);
 	}
