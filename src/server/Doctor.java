@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Doctor extends Nurse {
 
 	public Doctor(String name, ArrayList<Division> divisions) {
-		super(name,divisions );
+		super(name, divisions);
 		// TODO Auto-generated constructor stub
 	}
 

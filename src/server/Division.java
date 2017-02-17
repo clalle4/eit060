@@ -9,13 +9,12 @@ import java.util.List;
 
 public class Division {
 	String name;
-	private ArrayList<String> patients= new ArrayList<String>();
+	private ArrayList<String> patients = new ArrayList<String>();
 
 	public Division(String FILENAME) {
-		name= FILENAME;
+		name = FILENAME;
 		readDivisionFile(FILENAME);
 	}
-
 
 	private void readDivisionFile(String FILENAME) {
 		StringBuilder sb = new StringBuilder("./files/Divisions/");
@@ -34,16 +33,18 @@ public class Division {
 		}
 	}
 
-	public ArrayList<String> getPatientList(){
+	public ArrayList<String> getPatientList() {
 		return patients;
 	}
+
 	public boolean isPatientPartOfYou(String FILENAME) {
 		if (patients.contains(FILENAME)) {
 			return true;
 		}
 		return false;
 	}
-	public String getName(){
+
+	public String getName() {
 		return name;
 	}
 

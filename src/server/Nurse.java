@@ -43,7 +43,7 @@ public class Nurse extends User {
 
 	}
 
-	/** Saves a reference to the user´s division. **/
+	/** Saves a reference to the userï¿½s division. **/
 	private void setdivision(String myDiv, ArrayList<Division> divisionRefs) {
 		for (Division d : divisionRefs) {
 			if (myDiv.equals(d.getName())) {
@@ -56,17 +56,18 @@ public class Nurse extends User {
 	 * A nurse may write to all records associated with him/her, and also read
 	 * all records associated with the same division.
 	 **/
-	public void write(String FILENAME, String text) {// this will replace old file
+	public void write(String FILENAME, String text) {// this will replace old
+														// file
 		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
 		sb.append(FILENAME);
 		sb.append(".txt");
-		
-		try{
-		    PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
-		    writer.print(text);
-		    writer.close();
+
+		try {
+			PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
+			writer.print(text);
+			writer.close();
 		} catch (IOException e) {
-		   // do something
+			// do something
 		}
 	}
 
