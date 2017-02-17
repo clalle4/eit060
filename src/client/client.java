@@ -86,10 +86,12 @@ public class client {
 			String msg;
 			//Current design states that a request worded as "task:user" 
 			//If more is required further should be requested as with Write
+			//client is assumed to be the user Alice with pass 123
+			//Entire request is thusly "action:targer:user:password" (+":log entry" for read)
 			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person");
 			for (;;) {
 				System.out.print(">");
-				msg = read.readLine();
+				msg = read.readLine()+":Alice:123";
 				if (msg.charAt(0)=='0') {
 					break;
 				} else if(msg.charAt(0) == '2'){
