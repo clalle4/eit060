@@ -74,9 +74,8 @@ public class Hub {
 	public String readRequest(String[] request){
 		return users.get(request[2]).read(request[1]);
 	}
-	//does not work atm :/
-	public String writeRequest(String[] request){
-		return users.get(request[2]).writeLog(request[1],request[2]);
+	public String writeRequest(String[] request, String login){	
+		return users.get(login).writeLog(request[1],request[2]);
 	}
 
 	public String toString() {

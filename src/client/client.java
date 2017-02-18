@@ -89,7 +89,7 @@ public class client {
 			// Client is assumed to be the user Doctor1
 			// Entire request is thusly "action:targer:user" (+":log entry" for
 			// read)
-			String aprooved = "false";
+			String approved = "false";
 			/*to turn on password authentication remove commentary's below*/
 //			while (true) {
 				System.out.print("Enter Login:");
@@ -98,7 +98,7 @@ public class client {
 				String pass = read.readLine();
 				out.println(login + ":" + pass);
 				out.flush();
-//				aprooved = in.readLine();
+//				approved = in.readLine();
 //				if (aprooved.equals("true")) {
 //					System.out.println("Welcome "+login+"!");
 //					break;

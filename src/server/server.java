@@ -55,23 +55,24 @@ public class server implements Runnable {
 				try {
 					System.out.println(clientMsg);
 					String[] MsgContent = (clientMsg + ":" + login).split(":");
-					if (MsgContent[1] == null) {
-						new NullPointerException().printStackTrace();
-					}
+					if (clientMsg.charAt(0)>'9'||clientMsg.charAt(0)<'0') {
+						out.println("Wrong format, please review line.\nEOF");
+						out.flush();
+						}
 					switch (clientMsg.charAt(0)) {
 					case '1':
-						out.println(handleRead(MsgContent));
+						out.println(handleRead(MsgContent,login.split(":")[0]));
 						out.flush();
 						break;
 					case '2':
-// does not work atm :/
-						out.println(handleWrite(MsgContent) + "\nEOF");
+						out.println(handleWrite(MsgContent,login.split(":")[0]) + "\nEOF");
 						out.flush();
 						break;
 					}
 				} catch (NullPointerException e) {
 					out.println("Wrong format, please review line.\nEOF");
 					out.flush();
+					e.printStackTrace();
 				}
 				/*
 				 * The old program String rev = new
@@ -148,11 +149,11 @@ public class server implements Runnable {
 		return null;
 	}
 
-	private String handleRead(String[] request) {
+	private String handleRead(String[] request, String login) {
 		return ("Log follows:\n" + hub.readRequest(request) + "\nEOF");
 	}
 
-	private String handleWrite(String[] request) {
-		return hub.writeRequest(request);
+	private String handleWrite(String[] request, String login) {
+		return hub.writeRequest(request, login);
 	}
 }

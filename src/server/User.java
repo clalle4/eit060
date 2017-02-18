@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import javax.crypto.*;
 
@@ -126,16 +127,16 @@ public abstract class User {
 
 	protected abstract ArrayList<FileRights> listAvailableFiles();
 
-//	does not work atm :/
 	public String writeLog(String FILENAME, String log) {
-		long timestamp= System.currentTimeMillis();
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (isReadRequestAvailable(FILENAME)) {
 			StringBuilder sb = new StringBuilder("./files/PatientRecords/");
 			sb.append(FILENAME);
 			sb.append(".txt");
 			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString()));
-				bw.append("\n["+timestamp+"] " + log);
+				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
+				bw.append("\n["+timestamp.toString()+"]: " + log);
+				bw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
