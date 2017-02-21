@@ -71,7 +71,10 @@ public class Hub {
 	}
 
 	/**
-	 * point 0 = action point 1 is object point 2 is subject
+
+	 * point 0 is action
+	 * point 1 is object
+	 * point 2 is subject
 	 * 
 	 **/
 	public String readRequest(String[] request, String login) {
