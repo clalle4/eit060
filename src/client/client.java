@@ -53,6 +53,7 @@ public class client {
 				System.out.println("Input password:");
 				System.out.print(">");
 				char[] password = read.readLine().toCharArray();
+				char[] tspassword = "password".toCharArray();
 				KeyStore ks = KeyStore.getInstance("JKS");
 				KeyStore ts = KeyStore.getInstance("JKS");
 				KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
@@ -62,7 +63,7 @@ public class client {
 				ks.load(new FileInputStream(userID+"keystore"), password); // keystore
 																			// password
 																			// (storepass)
-				ts.load(new FileInputStream("clienttruststore"), password); // truststore
+				ts.load(new FileInputStream("clienttruststore"), tspassword); // truststore
 																			// password
 																			// (storepass);
 				kmf.init(ks, password); // user password (keypass)
