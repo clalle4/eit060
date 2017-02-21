@@ -86,17 +86,4 @@ public class Hub {
 
 		return sb.toString();
 	}
-	
-	/**
-	 * point 0 = name
-	 * point 1 = password
-	 * 
-	 * **/
-	public boolean login(String[] login){
-		System.out.println(login[0]+":"+login[1]);
-		if(users.get(login[0])==null){
-			return false;
-		}
-		return users.get(login[0]).authenticate(login[0], login[1]);
-	}
 }
