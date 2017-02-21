@@ -83,7 +83,7 @@ public class Nurse extends User {
 			sb.append(".txt");
 			try {
 				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
-				bw.append("\n["+timestamp.toString()+"]: " + log);
+				bw.append(System.lineSeparator()+timestamp.toString()+"]: " + log);
 				bw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
