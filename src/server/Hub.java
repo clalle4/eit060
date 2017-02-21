@@ -36,7 +36,7 @@ public class Hub {
 
 					String currentLine;
 
-					while ((currentLine = br.readLine()) != null) {
+					if ((currentLine = br.readLine()) != null) {
 						if (currentLine.equals("Doctor")) {
 							users.put(fil.getName().replaceAll(".txt", ""),
 									new Doctor(fil.getName().replaceAll(".txt", ""), divisions));
@@ -91,10 +91,7 @@ public class Hub {
 	}
 
 	public String writeRequest(String[] request, String login) {
-		User user = users.get(login);
-		if (user == null) {
-			user = new Patient(login);
-		}
+		Nurse user = (Nurse) users.get(login);
 		try {
 			return user.writeLog(request[1], request[2]);
 		} catch (NullPointerException e) {

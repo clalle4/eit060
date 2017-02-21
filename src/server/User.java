@@ -69,22 +69,5 @@ public abstract class User {
 
 	protected abstract ArrayList<FileRights> listAvailableFiles();
 
-	public String writeLog(String FILENAME, String log) {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		if (isReadRequestAvailable(FILENAME)) {
-			StringBuilder sb = new StringBuilder("./files/PatientRecords/");
-			sb.append(FILENAME);
-			sb.append(".txt");
-			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
-				bw.append("\n["+timestamp.toString()+"]: " + log);
-				bw.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return "Log complete with timestamp:"+timestamp;
-		}
-		return "You are not allowed to write to that file.";
-		// BufferedWriter bw = new BufferedWriter(new FileWriter(./file));
-	}
+	
 }
