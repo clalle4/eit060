@@ -1,11 +1,9 @@
 package client;
 
-import java.net.*;
 import java.io.*;
 import javax.net.ssl.*;
 import javax.security.cert.X509Certificate;
 import java.security.KeyStore;
-import java.security.cert.*;
 
 /*
  * This example shows how to set up a key manager to perform client
@@ -45,19 +43,21 @@ public class client {
 				System.out.println("Input password:");
 				System.out.print(">");
 				char[] password = read.readLine().toCharArray();
+				// truststore password hardcoded as "password" to ease
+				// implementation of the remaining keys
 				char[] tspassword = "password".toCharArray();
 				KeyStore ks = KeyStore.getInstance("JKS");
 				KeyStore ts = KeyStore.getInstance("JKS");
 				KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 				TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 				SSLContext ctx = SSLContext.getInstance("TLS");
-				
-				ks.load(new FileInputStream(userID+"keystore"), password); // keystore
-																			// password
-																			// (storepass)
+
+				ks.load(new FileInputStream(userID + "keystore"), password); // keystore
+																				// password
+																				// (storepass)
 				ts.load(new FileInputStream("clienttruststore"), tspassword); // truststore
-																			// password
-																			// (storepass);
+																				// password
+																				// (storepass);
 				kmf.init(ks, password); // user password (keypass)
 				tmf.init(ts); // keystore can be used as truststore here
 				ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -96,7 +96,7 @@ public class client {
 			// Client is assumed to be the user Doctor1
 			// Entire request is thusly "action:targer" (+":log entry" for
 			// read)
-			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person");
+			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person \nPrint rights: 3\nCreate new patient: 4");
 			for (;;) {
 				System.out.print(">");
 				msg = read.readLine();
@@ -106,6 +106,14 @@ public class client {
 					System.out.println("New entry in " + msg.split(":")[1] + "'s log:");
 					System.out.print(">");
 					msg = msg + ":" + read.readLine();
+				} else if(msg.charAt(0) == '4'){
+					System.out.println("New patient " + msg.split(":")[1]+". Enter ID:");
+					System.out.print(">");					
+					String tempID = read.readLine();
+					System.out.println("Enter info:");
+					System.out.print(">");					
+					String tempInfo = read.readLine();
+					msg = msg+":"+tempID+":"+tempInfo;
 				}
 				out.println(msg);
 				out.flush();

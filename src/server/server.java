@@ -41,7 +41,7 @@ public class server implements Runnable {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String clientMsg = null;
-			String login = cert.getSubjectDN().getName();
+			String login = cert.getSubjectDN().getName().substring(3);
 			while ((clientMsg = in.readLine()) != null) {
 				try {
 					String[] MsgContent = (clientMsg).split(":");
@@ -59,6 +59,11 @@ public class server implements Runnable {
 						out.println(handleWrite(MsgContent, login) + "\nEOF");
 						out.flush();
 						break;
+					case '3':
+						out.println(getRights(login) + "\nEOF");
+						out.flush();
+					case '4':
+						out.println("Patient "+MsgContent[1]+"Created.");
 					}
 					}
 				} catch (NullPointerException e) {
@@ -148,4 +153,8 @@ public class server implements Runnable {
 	private String handleWrite(String[] request, String login) {
 		return hub.writeRequest(request, login);
 	}
+	private String getRights(String login) {
+		return hub.getRights(login);
+	}
+	
 }

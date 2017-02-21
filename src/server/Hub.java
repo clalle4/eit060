@@ -79,6 +79,7 @@ public class Hub {
 	 **/
 	public String readRequest(String[] request, String login) {
 		User user = users.get(login);
+		System.out.println(login);
 		if (user == null) {
 			user = new Patient(login);
 		}
@@ -101,6 +102,22 @@ public class Hub {
 			return "ERROR: no file by that name.";
 		}
 
+	}
+	
+	public String getRights(String login){
+		User user = users.get(login);
+		if (user == null) {
+			user = new Patient(login);
+		}
+		try {
+			StringBuilder sb = new StringBuilder();
+			for(FileRights s:user.listAvailableFiles()){
+				sb.append("\n"+s.toString());
+			}
+			return sb.toString();
+		} catch (NullPointerException e) {
+			return "ERROR: no no rights available.";
+		}
 	}
 
 	public String toString() {
