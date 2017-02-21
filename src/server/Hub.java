@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Hub {
-	private HashMap<String,User> users = new HashMap<String,User>();
+	private HashMap<String, User> users = new HashMap<String, User>();
 	private ArrayList<Division> divisions = new ArrayList<Division>();
 	
 	public Hub() {
@@ -38,11 +38,14 @@ public class Hub {
 
 					while ((currentLine = br.readLine()) != null) {
 						if (currentLine.equals("Doctor")) {
-							users.put(fil.getName().replaceAll(".txt", ""),new Doctor(fil.getName().replaceAll(".txt", ""), divisions));
+							users.put(fil.getName().replaceAll(".txt", ""),
+									new Doctor(fil.getName().replaceAll(".txt", ""), divisions));
 						} else if (currentLine.equals("Nurse")) {
-							users.put(fil.getName().replaceAll(".txt", ""),new Nurse(fil.getName().replaceAll(".txt", ""), divisions));
+							users.put(fil.getName().replaceAll(".txt", ""),
+									new Nurse(fil.getName().replaceAll(".txt", ""), divisions));
 						} else if (currentLine.equals("Gov")) {
-							users.put(fil.getName().replaceAll(".txt", ""),new Gov(fil.getName().replaceAll(".txt", "")));
+							users.put(fil.getName().replaceAll(".txt", ""),
+									new Gov(fil.getName().replaceAll(".txt", "")));
 						}
 					}
 
@@ -66,17 +69,38 @@ public class Hub {
 				divisions.add(new Division(fil.getName().replaceAll(".txt", "")));
 			}
 	}
+
 	/**
+
 	 * point 0 is action
 	 * point 1 is object
 	 * point 2 is subject
 	 * 
-	 * **/
-	public String readRequest(String[] request, String login){
-		return users.get(login).read(request[1]);
+	 **/
+	public String readRequest(String[] request, String login) {
+		User user = users.get(login);
+		if (user == null) {
+			user = new Patient(login);
+		}
+		try {
+			return user.read(request[1]);
+		} catch (NullPointerException e) {
+			return "ERROR: no file by that name.";
+		}
+
 	}
-	public String writeRequest(String[] request, String login){	
-		return users.get(login).writeLog(request[1],request[2]);
+
+	public String writeRequest(String[] request, String login) {
+		User user = users.get(login);
+		if (user == null) {
+			user = new Patient(login);
+		}
+		try {
+			return user.writeLog(request[1], request[2]);
+		} catch (NullPointerException e) {
+			return "ERROR: no file by that name.";
+		}
+
 	}
 
 	public String toString() {
