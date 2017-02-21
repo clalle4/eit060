@@ -82,7 +82,7 @@ public abstract class User {
 			}
 			return "Log complete with timestamp:"+timestamp;
 		}
-		return "You are not allowed to write to that file";
+		return "You are not allowed to write to that file.";
 		// BufferedWriter bw = new BufferedWriter(new FileWriter(./file));
 	}
 }

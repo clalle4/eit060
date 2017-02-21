@@ -1,4 +1,3 @@
 Name: Alice
-Password: [B@5680a178
 ID: 9102034567
 Info: Sjukdom1

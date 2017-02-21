@@ -1,4 +1,3 @@
 Name: Connor
-Password: 2052018571
 ID: 9304056789
 Info: Sjukdom3
