@@ -116,6 +116,16 @@ public class Hub {
 			return "ERROR: no no rights available.";
 		}
 	}
+	
+	public boolean createPatient(String[] request, String login){
+		Doctor user = (Doctor) users.get(login);
+		if (user == null) {
+			return false;
+		}
+		String content = "Name: "+request[1]+"\nID: "+request[2]+"\nInfo: "+request[3];
+		user.createPatient(request[1], content);
+		return true;
+	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
