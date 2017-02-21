@@ -71,8 +71,8 @@ public class Hub {
 	 * point 2 is subject
 	 * 
 	 * **/
-	public String readRequest(String[] request){
-		return users.get(request[2]).read(request[1]);
+	public String readRequest(String[] request, String login){
+		return users.get(login).read(request[1]);
 	}
 	public String writeRequest(String[] request, String login){	
 		return users.get(login).writeLog(request[1],request[2]);

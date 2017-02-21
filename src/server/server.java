@@ -41,33 +41,25 @@ public class server implements Runnable {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String clientMsg = null;
-			// login
-			// boolean auth = false;
-			String login = "0:0";
-			// while(!auth){
-			login = in.readLine();
-			// auth = hub.login(login.split(":"));
-			// out.println(auth);
-			// out.flush();
-			// }
-			// after login
+			String login = cert.getSubjectDN().getName();
 			while ((clientMsg = in.readLine()) != null) {
 				try {
+					String[] MsgContent = (clientMsg).split(":");
 					System.out.println(clientMsg);
-					String[] MsgContent = (clientMsg + ":" + login).split(":");
-					if (clientMsg.charAt(0)>'9'||clientMsg.charAt(0)<'0') {
+					if (clientMsg.charAt(0) > '9' || clientMsg.charAt(0) < '0') {
 						out.println("Wrong format, please review line.\nEOF");
 						out.flush();
-						}
+					}else{
 					switch (clientMsg.charAt(0)) {
 					case '1':
-						out.println(handleRead(MsgContent,login.split(":")[0]));
+						out.println(handleRead(MsgContent, login ));
 						out.flush();
 						break;
 					case '2':
-						out.println(handleWrite(MsgContent,login.split(":")[0]) + "\nEOF");
+						out.println(handleWrite(MsgContent, login) + "\nEOF");
 						out.flush();
 						break;
+					}
 					}
 				} catch (NullPointerException e) {
 					out.println("Wrong format, please review line.\nEOF");
@@ -150,7 +142,7 @@ public class server implements Runnable {
 	}
 
 	private String handleRead(String[] request, String login) {
-		return ("Log follows:\n" + hub.readRequest(request) + "\nEOF");
+		return ("Log follows:\n" + hub.readRequest(request, login) + "\nEOF");
 	}
 
 	private String handleWrite(String[] request, String login) {
