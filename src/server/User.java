@@ -52,10 +52,12 @@ public abstract class User {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		//	contents.append(System.lineSeparator()+"End of String");
 			return contents.toString();
 
 		}
 		contents.append("You are not allowed to access that file");
+//		contents.append(System.lineSeparator()+"End of String");
 		return contents.toString();
 	}
 
