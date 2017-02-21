@@ -1,8 +1,10 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -45,7 +47,7 @@ public abstract class User {
 	 * Writes the content of a patient's records
 	 * 
 	 * @param FILENAME
-	 * The name of the patient whose records you want to access
+	 *            The name of the patient whose records you want to access
 	 */
 	public String read(String FILENAME) {
 		StringBuilder contents = new StringBuilder();
@@ -60,12 +62,13 @@ public abstract class User {
 				if (currentLine != null) {
 					contents.append(currentLine);
 					currentLine = br.readLine();
-					
+
 					while (currentLine != null) {
 						contents.append(System.lineSeparator() + currentLine);
 						currentLine = br.readLine();
 					}
 				}
+				br.close();// needed for test createNdeletepatients with text
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -79,7 +82,7 @@ public abstract class User {
 	/** Same authentication process for all users, implemented only here */
 	protected boolean authenticate(String username, String password) {
 		MessageDigest md;
-		
+
 		try {
 			md = MessageDigest.getInstance("SHA-512");
 			byte[] hash = password.getBytes();
@@ -89,26 +92,25 @@ public abstract class User {
 			
 			File f = new File("./files/PatientRecords/");
 			File[] patientRecordList = f.listFiles();
-			
+
 			StringBuilder contents = new StringBuilder();
 			BufferedReader br = null;
 
 			if (patientRecordList != null) {
-				
+
 				for (File fil : patientRecordList) {
-					
+
 					if (name.equals(fil.getName().replaceAll(".txt", ""))) {
 
 						try {
 							br = new BufferedReader(new FileReader("./files/PatientRecords/" + name + ".txt"));
 							String currentLine = br.readLine();
 							currentLine = br.readLine();
-							String filePassword = currentLine.substring(10);
-							//String passWithSalt = currentLine.substring(10);
-							//String passWithoutSalt;
-							//passWithoutSalt = passWithSalt.substring(2);
-							//byte[] bytePass = passWithoutSalt.getBytes();
-							byte[] bytePass = filePassword.getBytes();
+							String passWithSalt = currentLine.substring(10);
+							// String passWithoutSalt;
+							// passWithoutSalt = passWithSalt.substring(2);
+							// byte[] bytePass = passWithoutSalt.getBytes();
+							byte[] bytePass = passWithSalt.getBytes();
 							if (MessageDigest.isEqual(hash, bytePass)) {
 								return true;
 							} else {
@@ -149,4 +151,22 @@ public abstract class User {
 
 	protected abstract ArrayList<FileRights> listAvailableFiles();
 
+	public String writeLog(String FILENAME, String log) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		if (isReadRequestAvailable(FILENAME)) {
+			StringBuilder sb = new StringBuilder("./files/PatientRecords/");
+			sb.append(FILENAME);
+			sb.append(".txt");
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
+				bw.append("\n["+timestamp.toString()+"]: " + log);
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return "Log complete with timestamp:"+timestamp;
+		}
+		return "You are not allowed to write to that file";
+		// BufferedWriter bw = new BufferedWriter(new FileWriter(./file));
+	}
 }

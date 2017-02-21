@@ -89,22 +89,23 @@ public class client {
 			// Client is assumed to be the user Doctor1
 			// Entire request is thusly "action:targer:user" (+":log entry" for
 			// read)
-			String aprooved = "false";
-			while (true) {
+			String approved = "false";
+			/*to turn on password authentication remove commentary's below*/
+//			while (true) {
 				System.out.print("Enter Login:");
 				String login = read.readLine();
 				System.out.print("Enter Password:");
 				String pass = read.readLine();
 				out.println(login + ":" + pass);
 				out.flush();
-				aprooved = in.readLine();
-				if (aprooved.equals("true")) {
-					System.out.println("Welcome "+login+"!");
-					break;
-				} else{
-					System.out.println("Non existing user or wrong password");
-				}
-			}
+//				approved = in.readLine();
+//				if (aprooved.equals("true")) {
+//					System.out.println("Welcome "+login+"!");
+//					break;
+//				} else{
+//					System.out.println("Non existing user or wrong password");
+//				}
+//			}
 			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person");
 			for (;;) {
 				System.out.print(">");

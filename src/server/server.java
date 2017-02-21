@@ -12,6 +12,7 @@ public class server implements Runnable {
 	private ServerSocket serverSocket = null;
 	private static int numConnectedClients = 0;
 	private Hub hub;
+
 	public server(ServerSocket ss) throws IOException {
 		serverSocket = ss;
 		newListener();
@@ -33,48 +34,52 @@ public class server implements Runnable {
 			System.out.println("serial number (serial number field): " + serial);
 
 			System.out.println(numConnectedClients + " concurrent connection(s)\n");
-			
+
 			hub = new Hub();
 			PrintWriter out = null;
 			BufferedReader in = null;
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
 			String clientMsg = null;
-			boolean auth = false;
+			// login
+			// boolean auth = false;
 			String login = "0:0";
-			while(!auth){
+			// while(!auth){
 			login = in.readLine();
-			auth = hub.login(login.split(":"));
-			out.println(auth);
-			out.flush();
-			}
+			// auth = hub.login(login.split(":"));
+			// out.println(auth);
+			// out.flush();
+			// }
+			// after login
 			while ((clientMsg = in.readLine()) != null) {
-				try{				
+				try {
 					System.out.println(clientMsg);
-					String[] MsgContent = (clientMsg+":"+login).split(":");
-				switch(clientMsg.charAt(0)){
-				case '1':
-					out.println(handleRead(MsgContent));
+					String[] MsgContent = (clientMsg + ":" + login).split(":");
+					if (clientMsg.charAt(0)>'9'||clientMsg.charAt(0)<'0') {
+						out.println("Wrong format, please review line.\nEOF");
+						out.flush();
+						}
+					switch (clientMsg.charAt(0)) {
+					case '1':
+						out.println(handleRead(MsgContent,login.split(":")[0]));
+						out.flush();
+						break;
+					case '2':
+						out.println(handleWrite(MsgContent,login.split(":")[0]) + "\nEOF");
+						out.flush();
+						break;
+					}
+				} catch (NullPointerException e) {
+					out.println("Wrong format, please review line.\nEOF");
 					out.flush();
-					break;
-				case '2':
-					out.println(handleWrite(MsgContent));
-					out.flush();
-					break;
-				}
-				}catch(NullPointerException e){
 					e.printStackTrace();
-					//out.println("Wrong format, please review line.");
-					//out.flush();
 				}
-				/* The old program
-				String rev = new StringBuilder(clientMsg).reverse().toString();
-				System.out.println("received '" + clientMsg + "' from client");
-				System.out.print("sending '" + rev + "' to client...");
-				out.println(rev);
-				out.flush();
-				System.out.println("done\n");
+				/*
+				 * The old program String rev = new
+				 * StringBuilder(clientMsg).reverse().toString();
+				 * System.out.println("received '" + clientMsg + "' from client"
+				 * ); System.out.print("sending '" + rev + "' to client...");
+				 * out.println(rev); out.flush(); System.out.println("done\n");
 				 */
 			}
 			in.close();
@@ -143,11 +148,12 @@ public class server implements Runnable {
 		}
 		return null;
 	}
-	private String handleRead(String[] request){
-		return ("Log follows:\n"+hub.readRequest(request)+"\nEOF");
+
+	private String handleRead(String[] request, String login) {
+		return ("Log follows:\n" + hub.readRequest(request) + "\nEOF");
 	}
-	private String handleWrite(String[] request){
-		
-		return request[1]+" log written: '" +request[2]+"'";
+
+	private String handleWrite(String[] request, String login) {
+		return hub.writeRequest(request, login);
 	}
 }
