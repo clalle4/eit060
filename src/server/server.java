@@ -1,16 +1,26 @@
 package server;
 
-import java.io.*;
-import java.math.BigInteger;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
 import java.security.KeyStore;
-import javax.net.*;
-import javax.net.ssl.*;
+
+import javax.net.ServerSocketFactory;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLServerSocket;
+import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.TrustManagerFactory;
 import javax.security.cert.X509Certificate;
 
 public class server implements Runnable {
 	private ServerSocket serverSocket = null;
-	private static int numConnectedClients = 0;
+	private static int NBRCONNECTEDCLIENTS = 0;
 	private Hub hub;
 
 	public server(ServerSocket ss) throws IOException {
@@ -27,13 +37,13 @@ public class server implements Runnable {
 			String subject = cert.getSubjectDN().getName();
 			String issuer = cert.getIssuerDN().getName();
 			String serial = cert.getSerialNumber().toString();
-			numConnectedClients++;
+			NBRCONNECTEDCLIENTS++;
 			System.out.println("client connected");
 			System.out.println("client name (cert subject DN field): " + subject);
 			System.out.println("issuer name (cert issuer DN field): " + issuer);
 			System.out.println("serial number (serial number field): " + serial);
 
-			System.out.println(numConnectedClients + " concurrent connection(s)\n");
+			System.out.println(NBRCONNECTEDCLIENTS + " concurrent connection(s)\n");
 
 			hub = new Hub();
 			PrintWriter out = null;
@@ -77,9 +87,9 @@ public class server implements Runnable {
 			in.close();
 			out.close();
 			socket.close();
-			numConnectedClients--;
+			NBRCONNECTEDCLIENTS--;
 			System.out.println("client disconnected");
-			System.out.println(numConnectedClients + " concurrent connection(s)\n");
+			System.out.println(NBRCONNECTEDCLIENTS + " concurrent connection(s)\n");
 		} catch (IOException e) {
 			System.out.println("Client died: " + e.getMessage());
 			e.printStackTrace();

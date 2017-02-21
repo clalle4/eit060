@@ -10,6 +10,7 @@ import java.util.HashMap;
 public class Hub {
 	private HashMap<String,User> users = new HashMap<String,User>();
 	private ArrayList<Division> divisions = new ArrayList<Division>();
+	
 	public Hub() {
 		startUp();
 	}
