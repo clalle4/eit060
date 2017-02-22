@@ -1,5 +1,6 @@
 package client;
 
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -53,6 +54,8 @@ public class client {
 				System.out.println("Input password:");
 				System.out.print("> ");
 				char[] password = read.readLine().toCharArray();
+				// truststore password hardcoded as "password" to ease
+				// implementation of the remaining keys
 				char[] tspassword = "password".toCharArray();
 				KeyStore ks = KeyStore.getInstance("JKS");
 				KeyStore ts = KeyStore.getInstance("JKS");
@@ -104,7 +107,7 @@ public class client {
 			// Client is assumed to be the user Doctor1
 			// Entire request is thusly "action:targer" (+":log entry" for
 			// read)
-			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person");
+			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person \nPrint rights: 3\nCreate new patient: 4");
 			for (;;) {
 				System.out.print("> ");
 				msg = read.readLine();
@@ -114,6 +117,24 @@ public class client {
 					System.out.println("New entry in " + msg.split(":")[1] + "'s log:");
 					System.out.print("> ");
 					msg = msg + ":" + read.readLine();
+				} else if(msg.charAt(0) == '4'){
+					System.out.println("New patient. Enter Name:");
+					System.out.print(">");					
+					String tempName= read.readLine();
+					System.out.println("Enter ID:");					
+					System.out.print(">");					
+					String tempID = read.readLine();
+					System.out.println("Enter info:");
+					System.out.print(">");					
+					String tempInfo = read.readLine();
+					System.out.println("Enter Nurse:");
+					System.out.print(">");					
+					String tempNurse = read.readLine();
+					System.out.println("Enter Division number:");
+					System.out.print(">");					
+					String tempDiv = read.readLine();
+					msg = msg+":"+tempName+":"+tempID+":"+tempInfo+":"+tempNurse+":"+tempDiv;
+
 				}
 				out.println(msg);
 				out.flush();

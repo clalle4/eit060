@@ -48,9 +48,9 @@ public class User_read {
 	@Test
 	public void readThrouHubtest1() {
 		Hub b = new Hub();
-		String[] s = { "1", "Alice", "Doctor1" };
+		String[] s = { "1", "Alice", "doctor" };
 		assertEquals("Name: Alice" + System.lineSeparator()  + "ID: 9102034567"
-				+ System.lineSeparator() + "Info: Sjukdom1", b.readRequest(s, "Doctor1"));
+				+ System.lineSeparator() + "Info: Sjukdom1", b.readRequest(s, "doctor"));
 	}
 
 	@Test

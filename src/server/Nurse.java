@@ -1,10 +1,13 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Nurse extends User {
@@ -42,6 +45,18 @@ public class Nurse extends User {
 		}
 
 	}
+	public void addPatient(String name){
+		StringBuilder sb = new StringBuilder("./files/Users/");
+		sb.append(this.name);
+		sb.append(".txt");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
+			bw.append("\n"+name);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/** Saves a reference to the user�s division. **/
 	private void setdivision(String myDiv, ArrayList<Division> divisionRefs) {
@@ -56,18 +71,46 @@ public class Nurse extends User {
 	 * A nurse may write to all records associated with him/her, and also read
 	 * all records associated with the same division.
 	 **/
-	public void write(String FILENAME, String text) {// this will replace old
-														// file
-		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
-		sb.append(FILENAME);
-		sb.append(".txt");
+//	public void write(String FILENAME, String text) {// this will replace old
+//														// file
+//		if(isWriteRequestAvailable(FILENAME)){
+//		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
+//		sb.append(FILENAME);
+//		sb.append(".txt");
+//
+//		try {
+//			PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
+//			writer.print(text);
+//			writer.close();
+//		} catch (IOException e) {
+//			// do something
+//		}}
+//	}
+	
+	public String writeLog(String FILENAME, String log) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		if (isReadRequestAvailable(FILENAME)) {
+			StringBuilder sb = new StringBuilder("./files/PatientRecords/");
+			sb.append(FILENAME);
+			sb.append(".txt");
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
+				bw.append(System.lineSeparator()+timestamp.toString()+"]: " + log);
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return "Log complete with timestamp:"+timestamp;
+		}
+		return "You are not allowed to write to that file.";
+		// BufferedWriter bw = new BufferedWriter(new FileWriter(./file));
+	}
 
-		try {
-			PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
-			writer.print(text);
-			writer.close();
-		} catch (IOException e) {
-			// do something
+	private boolean isWriteRequestAvailable(String FILENAME) {
+		if (patients.contains(FILENAME)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 

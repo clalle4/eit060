@@ -51,7 +51,10 @@ public class server implements Runnable {
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String clientMsg = null;
-			String login = cert.getSubjectDN().getName();
+			String login = cert.getSubjectDN().getName().substring(3);
+			// program start. IMPORTANT: all returns to client must end with
+			// "\nEOF" to signify the end of the action, regardless of success
+			// or failure!
 			while ((clientMsg = in.readLine()) != null) {
 				try {
 					String[] MsgContent = (clientMsg).split(":");
@@ -59,17 +62,42 @@ public class server implements Runnable {
 					if (clientMsg.charAt(0) > '9' || clientMsg.charAt(0) < '0') {
 						out.println("Wrong format, please review line.\nEOF");
 						out.flush();
-					}else{
-					switch (clientMsg.charAt(0)) {
-					case '1':
-						out.println(handleRead(MsgContent, login ));
-						out.flush();
-						break;
-					case '2':
-						out.println(handleWrite(MsgContent, login) + "\nEOF");
-						out.flush();
-						break;
-					}
+					} else {
+						switch (clientMsg.charAt(0)) {
+						case '1':
+							out.println(handleRead(MsgContent, login));
+							out.flush();
+							break;
+						case '2':
+							out.println(handleWrite(MsgContent, login) + "\nEOF");
+							out.flush();
+							break;
+						case '3':
+							out.println(getRights(login) + "\nEOF");
+							out.flush();
+							break;
+						case '4':
+							switch (hub.createPatient(MsgContent, login)) {
+							case 0:
+								out.println("Patient " + MsgContent[1] + " Created." + "\nEOF");
+								break;
+							case 1:
+								out.println("ERROR: You are not a doctor." + "\nEOF");
+								break;
+							case 2:
+								out.println("ERROR: Nurse does not exist." + "\nEOF");
+								break;
+							case 3:
+								out.println("ERROR: Patient already exist." + "\nEOF");
+								break;
+							case 4:
+								out.println("ERROR: Division format is wrong, please enter a single number instead."
+										+ "\nEOF");
+								break;
+							}
+							out.flush();
+							break;
+						}
 					}
 				} catch (NullPointerException e) {
 					out.println("Wrong format, please review line.\nEOF");
@@ -158,4 +186,13 @@ public class server implements Runnable {
 	private String handleWrite(String[] request, String login) {
 		return hub.writeRequest(request, login);
 	}
+
+	private int createPatient(String[] request, String login) {
+		return hub.createPatient(request, login);
+	}
+
+	private String getRights(String login) {
+		return hub.getRights(login);
+	}
+
 }
