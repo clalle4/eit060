@@ -59,22 +59,29 @@ public class server implements Runnable {
 					if (clientMsg.charAt(0) > '9' || clientMsg.charAt(0) < '0') {
 						out.println("Wrong format, please review line.\nEOF");
 						out.flush();
-					}else{
-					switch (clientMsg.charAt(0)) {
-					case '1':
-						out.println(handleRead(MsgContent, login ));
-						out.flush();
-						break;
-					case '2':
-						out.println(handleWrite(MsgContent, login) + "\nEOF");
-						out.flush();
-						break;
-					case '3':
-						out.println(getRights(login) + "\nEOF");
-						out.flush();
-					case '4':
-						out.println("Patient "+MsgContent[1]+"Created.");
-					}
+					} else {
+						switch (clientMsg.charAt(0)) {
+						case '1':
+							out.println(handleRead(MsgContent, login));
+							out.flush();
+							break;
+						case '2':
+							out.println(handleWrite(MsgContent, login) + "\nEOF");
+							out.flush();
+							break;
+						case '3':
+							out.println(getRights(login) + "\nEOF");
+							out.flush();
+							break;
+						case '4':
+							if (hub.createPatient(MsgContent, login)) {
+								out.println("Patient " + MsgContent[1] + " Created.");
+							} else {
+								out.println("ERROR: You are not a doctor.");
+							}
+							out.flush();
+							break;
+						}
 					}
 				} catch (NullPointerException e) {
 					out.println("Wrong format, please review line.\nEOF");
@@ -163,8 +170,13 @@ public class server implements Runnable {
 	private String handleWrite(String[] request, String login) {
 		return hub.writeRequest(request, login);
 	}
+
+	private boolean createPatient(String[] request, String login) {
+		return hub.createPatient(request, login);
+	}
+
 	private String getRights(String login) {
 		return hub.getRights(login);
 	}
-	
+
 }

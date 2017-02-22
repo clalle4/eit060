@@ -118,7 +118,10 @@ public class client {
 					System.out.print(">");
 					msg = msg + ":" + read.readLine();
 				} else if(msg.charAt(0) == '4'){
-					System.out.println("New patient " + msg.split(":")[1]+". Enter ID:");
+					System.out.println("New patient. Enter Name:");
+					System.out.print(">");					
+					String tempName= read.readLine();
+					System.out.println("Enter ID:");					
 					System.out.print(">");					
 					String tempID = read.readLine();
 					System.out.println("Enter info:");
@@ -127,7 +130,8 @@ public class client {
 					System.out.println("Enter Nurse:");
 					System.out.print(">");					
 					String tempNurse = read.readLine();
-					msg = msg+":"+tempID+":"+tempInfo+":"+tempNurse;
+					msg = msg+":"+tempName+":"+tempID+":"+tempInfo+":"+tempNurse;
+
 				}
 				out.println(msg);
 				out.flush();
