@@ -124,7 +124,10 @@ public class client {
 					System.out.println("Enter info:");
 					System.out.print(">");					
 					String tempInfo = read.readLine();
-					msg = msg+":"+tempID+":"+tempInfo;
+					System.out.println("Enter Nurse:");
+					System.out.print(">");					
+					String tempNurse = read.readLine();
+					msg = msg+":"+tempID+":"+tempInfo+":"+tempNurse;
 				}
 				out.println(msg);
 				out.flush();
