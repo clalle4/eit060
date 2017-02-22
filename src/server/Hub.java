@@ -115,28 +115,36 @@ public class Hub {
 	}
 
 	/**
-	 * Makes a new patient with a proper request. Could be better to make into
-	 * an int later to simplify identification of errors.
+	 * Makes a new patient with a proper request. return 0 means success.
+	 * 1 means the user is not a doctor. 
+	 * 2 means nurse does not exist.
+	 * 3 means patient already exist.
+	 * 4 means division does not exist 
+	 * 5 means division format is wrong
 	 */
-	public boolean createPatient(String[] request, String login) {
+	public int createPatient(String[] request, String login) {
 		Doctor user = (Doctor) users.get(login);
 		if (user == null) {
-			return false;
+			return 1;
 		}
 		Nurse nurse = (Nurse) users.get(request[4]);
 		if (nurse == null) {
-			return false;
+			return 2;
 		}
-		
-		nurse.addPatient(request[1]);
-		user.addPatient(request[1]);
+		if(request[5].length() != 1 || request[5].charAt(0)<'0' || request[5].charAt(0)>'9'){
+		return 4;
+		}
 		String content = "Name: " + request[1] + "\nID: " + request[2] + "\nDoctor: " + login + "\nNurse: " + request[4]
 				+ "\nDivision: D"+request[5]+ "\nInfo: " + request[3];
-		user.createPatient(request[1], content);
+		if(!user.createPatient(request[1], content)){
+		return 3;	
+		}
+		nurse.addPatient(request[1]);
+		user.addPatient(request[1]);
 		divisions.get(Integer.parseInt(request[5])-1).newPatient(request[1]);
 		users.put(login, new Doctor(login, divisions));
 		users.put(request[4], new Nurse(request[4], divisions));
-		return true;
+		return 0;
 	}
 
 	public String toString() {
