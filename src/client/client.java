@@ -48,10 +48,10 @@ public class client {
 			BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				System.out.println("Input user ID:");
-				System.out.print(">");
+				System.out.print("> ");
 				String userID = read.readLine();
 				System.out.println("Input password:");
-				System.out.print(">");
+				System.out.print("> ");
 				char[] password = read.readLine().toCharArray();
 				char[] tspassword = "password".toCharArray();
 				KeyStore ks = KeyStore.getInstance("JKS");
@@ -59,13 +59,13 @@ public class client {
 				KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
 				TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
 				SSLContext ctx = SSLContext.getInstance("TLS");
-				
-				ks.load(new FileInputStream(userID+"keystore"), password); // keystore
-																			// password
-																			// (storepass)
+
+				ks.load(new FileInputStream(userID + "keystore"), password); // keystore
+																				// password
+																				// (storepass)
 				ts.load(new FileInputStream("clienttruststore"), tspassword); // truststore
-																			// password
-																			// (storepass);
+																				// password
+																				// (storepass);
 				kmf.init(ks, password); // user password (keypass)
 				tmf.init(ts); // keystore can be used as truststore here
 				ctx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
@@ -106,13 +106,13 @@ public class client {
 			// read)
 			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person");
 			for (;;) {
-				System.out.print(">");
+				System.out.print("> ");
 				msg = read.readLine();
 				if (msg.charAt(0) == '0') {
 					break;
 				} else if (msg.charAt(0) == '2') {
 					System.out.println("New entry in " + msg.split(":")[1] + "'s log:");
-					System.out.print(">");
+					System.out.print("> ");
 					msg = msg + ":" + read.readLine();
 				}
 				out.println(msg);
