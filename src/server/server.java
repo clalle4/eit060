@@ -75,9 +75,9 @@ public class server implements Runnable {
 							break;
 						case '4':
 							if (hub.createPatient(MsgContent, login)) {
-								out.println("Patient " + MsgContent[1] + " Created.");
+								out.println("Patient " + MsgContent[1] + " Created."+"\nEOF");
 							} else {
-								out.println("ERROR: You are not a doctor.");
+								out.println("ERROR: You are not a doctor."+"\nEOF");
 							}
 							out.flush();
 							break;

@@ -122,7 +122,7 @@ public class Hub {
 		if (user == null) {
 			return false;
 		}
-		String content = "Name: "+request[1]+"\nID: "+request[2]+"\nInfo: "+request[3];
+		String content = "Name: "+request[1]+"\nID: "+request[2]+"\nNurse: "+request[4]+"\nDoctor: "+login+"\nInfo: "+request[3];
 		user.createPatient(request[1], content);
 		return true;
 	}
