@@ -45,6 +45,18 @@ public class Nurse extends User {
 		}
 
 	}
+	public void addPatient(String name){
+		StringBuilder sb = new StringBuilder("./files/Users/");
+		sb.append(this.name);
+		sb.append(".txt");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
+			bw.append("\n"+name);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/** Saves a reference to the user�s division. **/
 	private void setdivision(String myDiv, ArrayList<Division> divisionRefs) {

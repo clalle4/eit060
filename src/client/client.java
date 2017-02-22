@@ -130,7 +130,10 @@ public class client {
 					System.out.println("Enter Nurse:");
 					System.out.print(">");					
 					String tempNurse = read.readLine();
-					msg = msg+":"+tempName+":"+tempID+":"+tempInfo+":"+tempNurse;
+					System.out.println("Enter Division number:");
+					System.out.print(">");					
+					String tempDiv = read.readLine();
+					msg = msg+":"+tempName+":"+tempID+":"+tempInfo+":"+tempNurse+":"+tempDiv;
 
 				}
 				out.println(msg);

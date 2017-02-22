@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class Hub {
 	private HashMap<String, User> users = new HashMap<String, User>();
 	private ArrayList<Division> divisions = new ArrayList<Division>();
-	
+
 	public Hub() {
 		startUp();
 	}
@@ -71,15 +71,12 @@ public class Hub {
 	}
 
 	/**
-
-	 * point 0 is action
-	 * point 1 is object
-	 * point 2 is subject
+	 * 
+	 * point 0 is action point 1 is object point 2 is subject
 	 * 
 	 **/
 	public String readRequest(String[] request, String login) {
 		User user = users.get(login);
-		System.out.println(login);
 		if (user == null) {
 			user = new Patient(login);
 		}
@@ -100,30 +97,45 @@ public class Hub {
 		}
 
 	}
-	
-	public String getRights(String login){
+
+	public String getRights(String login) {
 		User user = users.get(login);
 		if (user == null) {
 			user = new Patient(login);
 		}
 		try {
 			StringBuilder sb = new StringBuilder();
-			for(FileRights s:user.listAvailableFiles()){
-				sb.append("\n"+s.toString());
+			for (FileRights s : user.listAvailableFiles()) {
+				sb.append("\n" + s.toString());
 			}
 			return sb.toString();
 		} catch (NullPointerException e) {
 			return "ERROR: no no rights available.";
 		}
 	}
-	
-	public boolean createPatient(String[] request, String login){
+
+	/**
+	 * Makes a new patient with a proper request. Could be better to make into
+	 * an int later to simplify identification of errors.
+	 */
+	public boolean createPatient(String[] request, String login) {
 		Doctor user = (Doctor) users.get(login);
 		if (user == null) {
 			return false;
 		}
-		String content = "Name: "+request[1]+"\nID: "+request[2]+"\nNurse: "+request[4]+"\nDoctor: "+login+"\nInfo: "+request[3];
+		Nurse nurse = (Nurse) users.get(request[4]);
+		if (nurse == null) {
+			return false;
+		}
+		
+		nurse.addPatient(request[1]);
+		user.addPatient(request[1]);
+		String content = "Name: " + request[1] + "\nID: " + request[2] + "\nDoctor: " + login + "\nNurse: " + request[4]
+				+ "\nDivision: D"+request[5]+ "\nInfo: " + request[3];
 		user.createPatient(request[1], content);
+		divisions.get(Integer.parseInt(request[5])-1).newPatient(request[1]);
+		users.put(login, new Doctor(login, divisions));
+		users.put(request[4], new Nurse(request[4], divisions));
 		return true;
 	}
 
