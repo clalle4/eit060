@@ -45,13 +45,14 @@ public class Nurse extends User {
 		}
 
 	}
-	public void addPatient(String name){
+
+	public void addPatient(String name) {
 		StringBuilder sb = new StringBuilder("./files/Users/");
 		sb.append(this.name);
 		sb.append(".txt");
 		try {
-			BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
-			bw.append("\n"+name);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(), true));
+			bw.append("\n" + name);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,22 +72,22 @@ public class Nurse extends User {
 	 * A nurse may write to all records associated with him/her, and also read
 	 * all records associated with the same division.
 	 **/
-//	public void write(String FILENAME, String text) {// this will replace old
-//														// file
-//		if(isWriteRequestAvailable(FILENAME)){
-//		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
-//		sb.append(FILENAME);
-//		sb.append(".txt");
-//
-//		try {
-//			PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
-//			writer.print(text);
-//			writer.close();
-//		} catch (IOException e) {
-//			// do something
-//		}}
-//	}
-	
+	// public void write(String FILENAME, String text) {// this will replace old
+	// // file
+	// if(isWriteRequestAvailable(FILENAME)){
+	// StringBuilder sb = new StringBuilder("./files/PatientRecords/");
+	// sb.append(FILENAME);
+	// sb.append(".txt");
+	//
+	// try {
+	// PrintWriter writer = new PrintWriter(sb.toString(), "UTF-8");
+	// writer.print(text);
+	// writer.close();
+	// } catch (IOException e) {
+	// // do something
+	// }}
+	// }
+
 	public String writeLog(String FILENAME, String log) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (isReadRequestAvailable(FILENAME)) {
@@ -94,13 +95,13 @@ public class Nurse extends User {
 			sb.append(FILENAME);
 			sb.append(".txt");
 			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(),true));
-				bw.append(System.lineSeparator()+timestamp.toString()+"]: " + log);
+				BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(), true));
+				bw.append(System.lineSeparator() + timestamp.toString() + "]: " + log);
 				bw.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return "Log complete with timestamp:"+timestamp;
+			return "Log complete with timestamp:" + timestamp;
 		}
 		return "You are not allowed to write to that file.";
 		// BufferedWriter bw = new BufferedWriter(new FileWriter(./file));
@@ -146,11 +147,12 @@ public class Nurse extends User {
 				if (patient.equals(patientInDivision)) {
 					isAlreadyAdded = true;
 				}
-				if (!isAlreadyAdded) {
-					records.add(new FileRights(patientInDivision, true, false));
-				}
-				isAlreadyAdded = false;
+
 			}
+			if (!isAlreadyAdded) {
+				records.add(new FileRights(patientInDivision, true, false));
+			}
+			isAlreadyAdded = false;
 		}
 
 		return records;
