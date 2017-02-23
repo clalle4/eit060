@@ -24,7 +24,7 @@ import javax.security.cert.X509Certificate;
  * The application can be modified to connect to a server outside
  * the firewall by following SSLSocketClientWithTunneling.java.
  */
-public class client {
+public class Client {
 
 	public static void main(String[] args) throws Exception {
 		String host = null;
