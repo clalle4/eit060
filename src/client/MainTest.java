@@ -1,6 +1,6 @@
 package client;
 
-import server.server;
+import server.Server;
 
 public class MainTest {
 
@@ -10,9 +10,9 @@ public class MainTest {
 		serverIn[0] = "9876";
 		clientIn[0] = "localhost";
 		clientIn[1] = "9876";
-		server.main(serverIn);
+		Server.main(serverIn);
 		try {
-			client.main(clientIn);
+			Client.main(clientIn);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
