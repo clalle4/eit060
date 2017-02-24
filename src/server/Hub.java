@@ -91,7 +91,7 @@ public class Hub {
 	public String writeRequest(String[] request, String login) {
 		Nurse user = (Nurse) users.get(login);
 		try {
-			return user.writeLog(request[1], request[2]);
+			return user.write(request[1], request[2]);
 		} catch (NullPointerException e) {
 			return "ERROR: no file by that name.";
 		}
@@ -139,8 +139,8 @@ public class Hub {
 		if(!user.createPatient(request[1], content)){
 		return 3;	
 		}
-		nurse.addPatient(request[1]);
-		user.addPatient(request[1]);
+		nurse.givePatient(request[1]);
+		user.givePatient(request[1]);
 		divisions.get(Integer.parseInt(request[5])-1).newPatient(request[1]);
 		users.put(login, new Doctor(login, divisions));
 		users.put(request[4], new Nurse(request[4], divisions));

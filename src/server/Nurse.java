@@ -45,14 +45,16 @@ public class Nurse extends User {
 		}
 
 	}
-
-	public void addPatient(String name) {
+/**
+ * adds a newly created patient the the assigned patient list
+ * **/
+	public void givePatient(String name) {
 		StringBuilder sb = new StringBuilder("./files/Users/");
 		sb.append(this.name);
 		sb.append(".txt");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(sb.toString(), true));
-			bw.append("\n" + name);
+			bw.append(System.lineSeparator() + name);
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -88,7 +90,7 @@ public class Nurse extends User {
 	// }}
 	// }
 
-	public String writeLog(String FILENAME, String log) {
+	public String write(String FILENAME, String log) {
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		if (isReadRequestAvailable(FILENAME)) {
 			StringBuilder sb = new StringBuilder("./files/PatientRecords/");
