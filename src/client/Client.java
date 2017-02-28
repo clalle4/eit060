@@ -1,6 +1,5 @@
 package client;
 
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -47,13 +46,13 @@ public class Client {
 		try { /* set up a key manager for client authentication */
 			SSLSocketFactory factory = null;
 			BufferedReader read = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Input user ID:");
+			System.out.print("> ");
+			String userID = read.readLine();
+			System.out.println("Input password:");
+			System.out.print("> ");
+			char[] password = read.readLine().toCharArray();
 			try {
-				System.out.println("Input user ID:");
-				System.out.print("> ");
-				String userID = read.readLine();
-				System.out.println("Input password:");
-				System.out.print("> ");
-				char[] password = read.readLine().toCharArray();
 				// truststore password hardcoded as "password" to ease
 				// implementation of the remaining keys
 				char[] tspassword = "password".toCharArray();
@@ -107,42 +106,65 @@ public class Client {
 			// Client is assumed to be the user Doctor1
 			// Entire request is thusly "action:targer" (+":log entry" for
 			// read)
-			System.out.println("Temp menu: \nExit: 0\nRead: 1:person\nWrite: 2:person \nPrint rights: 3\nCreate new patient: 4");
+			System.out.println("Hello Mr and/or Mrs " + userID + "!");
+			System.out.println("To access the server, use one of the following commands: " + "\nExit: 0"
+					+ "\nRead: 1:person" + "\nWrite: 2:person (Doctors only)" + "\nPrint rights: 3"
+					+ "\nCreate new patient: 4 (Doctors only)" + "\nRemove records: 5:person (Govermental units only)"
+					+ "\nWhere needed, input the name of the patient you wish to handle if relevant!");
 			for (;;) {
 				System.out.print("> ");
 				msg = read.readLine();
+				while (msg.isEmpty()) {
+					System.out.print("> ");
+					msg = read.readLine();
+				}
 				if (msg.charAt(0) == '0') {
 					break;
 				} else if (msg.charAt(0) == '2') {
+					if (msg.split(":").length!=2) {
+						System.out.println("Wrong format, please review line.");
+						msg = null;
+					}else{
+						
 					System.out.println("New entry in " + msg.split(":")[1] + "'s log:");
 					System.out.print("> ");
 					msg = msg + ":" + read.readLine();
-				} else if(msg.charAt(0) == '4'){
+					}
+				} else if (msg.charAt(0) == '4') {
 					System.out.println("New patient. Enter Name:");
-					System.out.print(">");					
-					String tempName= read.readLine();
-					System.out.println("Enter ID:");					
-					System.out.print(">");					
+					System.out.print(">");
+					String tempName = read.readLine();
+					System.out.println("Enter ID:");
+					System.out.print(">");
 					String tempID = read.readLine();
 					System.out.println("Enter info:");
-					System.out.print(">");					
+					System.out.print(">");
 					String tempInfo = read.readLine();
 					System.out.println("Enter Nurse:");
-					System.out.print(">");					
+					System.out.print(">");
 					String tempNurse = read.readLine();
 					System.out.println("Enter Division number:");
-					System.out.print(">");					
+					System.out.print(">");
 					String tempDiv = read.readLine();
-					msg = msg+":"+tempName+":"+tempID+":"+tempInfo+":"+tempNurse+":"+tempDiv;
+					msg = msg + ":" + tempName + ":" + tempID + ":" + tempInfo + ":" + tempNurse + ":" + tempDiv;
 
+				} else if (msg.charAt(0) == '5') {
+					System.out.println("Remove patient, are you sure? (type yes to continue)");
+					System.out.print(">");
+					if (read.readLine().compareTo("yes") != 0) {
+						System.out.println("Request cancelled.");
+						msg = null;
+					}
 				}
-				out.println(msg);
-				out.flush();
-				System.out.println("Request sent.\n...");
-				String temp = in.readLine();
-				while (temp.compareTo("EOF") != 0) {
-					System.out.println(temp);
-					temp = in.readLine();
+				if (msg != null) {
+					out.println(msg);
+					out.flush();
+					System.out.println("Request sent.\n...");
+					String temp = in.readLine();
+					while (temp.compareTo("EOF") != 0) {
+						System.out.println(temp);
+						temp = in.readLine();
+					}
 				}
 			}
 

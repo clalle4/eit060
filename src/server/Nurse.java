@@ -160,4 +160,8 @@ public class Nurse extends User {
 		return records;
 	}
 
+	public boolean isNurse(){
+		return true;
+	}
+
 }

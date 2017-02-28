@@ -1,3 +1,6 @@
 Nurse
 D1
 Demi
+patient
+hej
+patieent

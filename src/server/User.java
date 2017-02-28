@@ -50,7 +50,7 @@ public abstract class User {
 				}
 				br.close();// needed for test createNdeletepatients with text
 			} catch (IOException e) {
-				e.printStackTrace();
+				contents.append("ERROR: File does not exist.");
 			}
 		//	contents.append(System.lineSeparator()+"End of String");
 			return contents.toString();
@@ -60,6 +60,9 @@ public abstract class User {
 //		contents.append(System.lineSeparator()+"End of String");
 		return contents.toString();
 	}
+	public boolean delete(String FILENAME) {
+		return false;
+	}
 
 	/**
 	 * A double check method to be called when "read" is called, to make sure
@@ -68,6 +71,8 @@ public abstract class User {
 	protected abstract boolean isReadRequestAvailable(String FILENAME);
 
 	protected abstract ArrayList<FileRights> listAvailableFiles();
+
+	public abstract boolean isNurse();
 
 	
 }

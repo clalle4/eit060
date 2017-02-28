@@ -13,9 +13,12 @@ public class Patient extends User {
 	// A patient is allowed to read his/her own list of records.
 	@Override
 	protected boolean isReadRequestAvailable(String FILENAME) {
-		if (name == FILENAME) {
+		if (name.compareTo(FILENAME)==0) {
 			return true;
 		}
+		return false;
+	}
+	public boolean isNurse(){
 		return false;
 	}
 

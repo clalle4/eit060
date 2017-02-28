@@ -76,6 +76,7 @@ public class Hub {
 	 * 
 	 **/
 	public String readRequest(String[] request, String login) {
+		System.out.println(request[1] + ":" + login);
 		User user = users.get(login);
 		if (user == null) {
 			user = new Patient(login);
@@ -88,14 +89,23 @@ public class Hub {
 
 	}
 
+	public boolean removeUser(String[] request, String login) {
+		User user = users.get(login);
+		return user.delete(request[1]);
+	}
+
 	public String writeRequest(String[] request, String login) {
 		Nurse user = (Nurse) users.get(login);
-		try {
-			return user.write(request[1], request[2]);
-		} catch (NullPointerException e) {
-			return "ERROR: no file by that name.";
+		if (user != null) {
+			if (user.isNurse()) {
+				try {
+					return user.write(request[1], request[2]);
+				} catch (NullPointerException e) {
+					return "ERROR: no file by that name.";
+				}
+			}
 		}
-
+		return "ERROR: You are not a nurse or doctor.";
 	}
 
 	public String getRights(String login) {
@@ -115,12 +125,10 @@ public class Hub {
 	}
 
 	/**
-	 * Makes a new patient with a proper request. return 0 means success.
-	 * 1 means the user is not a doctor. 
-	 * 2 means nurse does not exist.
-	 * 3 means patient already exist.
-	 * 4 means division does not exist 
-	 * 5 means division format is wrong
+	 * Makes a new patient with a proper request. return 0 means success. 1
+	 * means the user is not a doctor. 2 means nurse does not exist. 3 means
+	 * patient already exist. 4 means division does not exist 5 means division
+	 * format is wrong
 	 */
 	public int createPatient(String[] request, String login) {
 		Doctor user = (Doctor) users.get(login);
@@ -131,17 +139,17 @@ public class Hub {
 		if (nurse == null) {
 			return 2;
 		}
-		if(request[5].length() != 1 || request[5].charAt(0)<'0' || request[5].charAt(0)>'9'){
-		return 4;
+		if (request[5].length() != 1 || request[5].charAt(0) < '0' || request[5].charAt(0) > '9') {
+			return 4;
 		}
 		String content = "Name: " + request[1] + "\nID: " + request[2] + "\nDoctor: " + login + "\nNurse: " + request[4]
-				+ "\nDivision: D"+request[5]+ "\nInfo: " + request[3];
-		if(!user.createPatient(request[1], content)){
-		return 3;	
+				+ "\nDivision: D" + request[5] + "\nInfo: " + request[3];
+		if (!user.createPatient(request[1], content)) {
+			return 3;
 		}
 		nurse.givePatient(request[1]);
 		user.givePatient(request[1]);
-		divisions.get(Integer.parseInt(request[5])-1).newPatient(request[1]);
+		divisions.get(Integer.parseInt(request[5]) - 1).newPatient(request[1]);
 		users.put(login, new Doctor(login, divisions));
 		users.put(request[4], new Nurse(request[4], divisions));
 		return 0;
@@ -155,4 +163,5 @@ public class Hub {
 
 		return sb.toString();
 	}
+
 }

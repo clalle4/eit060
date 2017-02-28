@@ -1,0 +1,7 @@
+Name: patient
+ID: patient
+Doctor: doctor
+Nurse: nurse
+Division: D1
+Info: super sick guy
+2017-02-28 16:03:27.913]: still super sick

@@ -11,12 +11,15 @@ public class Gov extends User {
 	}
 
 	// A government agency is allowed to delete all types of records.
-	public void delete(String FILENAME) {
+	public boolean delete(String FILENAME) {
 		StringBuilder sb = new StringBuilder("./files/PatientRecords/");
 		sb.append(FILENAME);
 		sb.append(".txt");
 		File destructable = new File(sb.toString());
-		destructable.delete();
+		return destructable.delete();
+	}
+	public boolean isNurse(){
+		return false;
 	}
 
 	// A government agency is allowed to read all types of records.
