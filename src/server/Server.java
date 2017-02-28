@@ -1,12 +1,15 @@
 package server;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.security.KeyStore;
+import java.sql.Timestamp;
 
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.KeyManagerFactory;
@@ -57,6 +60,8 @@ public class Server implements Runnable {
 			// success
 			// or failure!
 			while ((clientMsg = in.readLine()) != null) {
+				String lastAction = "failed";
+				
 				try {
 					String[] MsgContent = (clientMsg).split(":");
 					System.out.println(clientMsg);
@@ -71,6 +76,7 @@ public class Server implements Runnable {
 							}
 							out.println(handleRead(MsgContent, login));
 							out.flush();
+							lastAction = "Read File Of User '"+MsgContent[1]+"'";
 							break;
 						case '2':
 							if(MsgContent.length != 3){
@@ -78,13 +84,16 @@ public class Server implements Runnable {
 							}
 							out.println(handleWrite(MsgContent, login) + "\nEOF");
 							out.flush();
+							lastAction = "Write New Log in file '"+MsgContent[1]+"'";
 							break;
+
 						case '3':
 							if(MsgContent.length != 1){
 								throw new NullPointerException();
 							}
 							out.println("Your rights are:\n "+getRights(login) + "\nEOF");
 							out.flush();
+							lastAction = "Get Rights";
 							break;
 						case '4':
 							if(MsgContent.length != 6){
@@ -93,6 +102,7 @@ public class Server implements Runnable {
 							switch (createPatient(MsgContent, login)) {
 							case 0:
 								out.println("Patient " + MsgContent[1] + " Created." + "\nEOF");
+								lastAction = "Create New User '"+MsgContent[1]+"'";
 								break;
 							case 1:
 								out.println("ERROR: You are not a doctor." + "\nEOF");
@@ -114,7 +124,12 @@ public class Server implements Runnable {
 							if(MsgContent.length != 2){
 								throw new NullPointerException();
 							}
-							out.println(handleRemove(MsgContent, login)+"\nEOF");
+							if(handleRemove(MsgContent, login)){
+								out.println(MsgContent[1]+" removed.\nEOF");
+								lastAction = "Remove User '"+MsgContent[1]+"'";
+							}else{
+								System.out.println("user not authorized or file nonexistant\nEOF");
+							}
 							break;
 						}
 						
@@ -130,6 +145,12 @@ public class Server implements Runnable {
 				 * ); System.out.print("sending '" + rev + "' to client...");
 				 * out.println(rev); out.flush(); System.out.println("done\n");
 				 */
+				if(lastAction.compareTo("failed") != 0){
+					BufferedWriter pw = new BufferedWriter(new FileWriter("./files/auditLog.txt",true));
+					Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+					pw.append("[" + timestamp.toString() + "]: " + "Action "+lastAction+" performed by: "+login+".\n");
+					pw.close();
+				}
 			}
 			in.close();
 			out.close();
@@ -214,12 +235,8 @@ public class Server implements Runnable {
 		return hub.getRights(login);
 	}
 
-	private String handleRemove(String[] msg, String login){
-		if(hub.removeUser(msg, login)){
-			return msg[1]+" removed.\nEOF";
-		}else{
-			return "user not authorized or file nonexistant\nEOF";
-		}
+	private boolean handleRemove(String[] msg, String login){
+		return hub.removeUser(msg, login);
 		
 	}
 }

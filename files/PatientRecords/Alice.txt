@@ -1,3 +1,5 @@
 Name: Alice
 ID: 9102034567
 Info: Sjukdom1
+2017-02-28 16:27:49.626]: Hello Alice.
+2017-02-28 16:30:45.084]: Hello again alice.
