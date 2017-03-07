@@ -15,7 +15,9 @@ public abstract class User {
 	public User(String name) {
 		this.name = name;
 	}
-
+	public boolean isDoctor(){
+		return false;
+	}
 	/**
 	 * Remove this for the final version
 	 **/

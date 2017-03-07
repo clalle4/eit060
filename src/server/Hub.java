@@ -131,6 +131,9 @@ public class Hub {
 	 * format is wrong
 	 */
 	public int createPatient(String[] request, String login) {
+		if(!users.get(login).isDoctor()){
+			return 1;
+		}
 		Doctor user = (Doctor) users.get(login);
 		if (user == null) {
 			return 1;
