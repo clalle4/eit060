@@ -77,12 +77,8 @@ public class Client {
 			}
 			SSLSocket socket = (SSLSocket) factory.createSocket(host, port);
 			System.out.println("\nsocket before handshake:\n" + socket + "\n");
-
 			/*
 			 * send http request
-			 *
-			 * See SSLSocketClient.java for more information about why there is
-			 * a forced handshake here when using PrintWriters.
 			 */
 			socket.startHandshake();
 
@@ -108,7 +104,7 @@ public class Client {
 			// read)
 			System.out.println("Hello Mr and/or Mrs " + userID + "!");
 			System.out.println("To access the server, use one of the following commands: " + "\nExit: 0"
-					+ "\nRead: 1:person" + "\nWrite: 2:person (Doctors only)" + "\nPrint rights: 3"
+					+ "\nRead: 1:person" + "\nWrite: 2:person (Doctors and Nurses only)" + "\nPrint rights: 3"
 					+ "\nCreate new patient: 4 (Doctors only)" + "\nRemove records: 5:person (Govermental units only)"
 					+ "\nWhere needed, input the name of the patient you wish to handle if relevant!");
 			for (;;) {

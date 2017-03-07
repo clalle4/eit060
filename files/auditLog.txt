@@ -1,1 +1,13 @@
 [2017-02-28 16:33:20.026]: Action Read File Of User 'Alice' performed by: nurse
+[2017-03-06 14:31:21.594]: Action Create New User 'Dave' performed by: doctor.
+[2017-03-06 14:31:26.348]: Action Read File Of User 'Dave' performed by: doctor.
+[2017-03-06 14:31:36.09]: Action Write New Log in file 'Dave' performed by: doctor.
+[2017-03-06 14:31:40.681]: Action Read File Of User 'Dave' performed by: doctor.
+[2017-03-06 14:32:02.868]: Action Read File Of User 'Dave' performed by: nurse.
+[2017-03-06 14:32:12.256]: Action Write New Log in file 'Dave' performed by: nurse.
+[2017-03-06 14:32:15.961]: Action Read File Of User 'Dave' performed by: nurse.
+[2017-03-06 14:46:10.947]: Action Read File Of User 'Dave' performed by: nurse.
+[2017-03-06 14:53:51.116]: Action Create New User 'Dave' performed by: doctor.
+[2017-03-06 14:53:58.384]: Action Read File Of User 'Dave' performed by: doctor.
+[2017-03-06 14:54:09.461]: Action Write New Log in file 'Dave' performed by: doctor.
+[2017-03-06 14:54:31.383]: Action Read File Of User 'Dave' performed by: nurse.

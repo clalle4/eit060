@@ -11,7 +11,9 @@ public class Doctor extends Nurse {
 		super(name, divisions);
 		// TODO Auto-generated constructor stub
 	}
-
+	public boolean isDoctor(){
+		return true;
+	}
 	/**
 	 * In addition, the doctor can create new records for a patient provided
 	 * that the doctor is treating the patient. When creating the record, the
